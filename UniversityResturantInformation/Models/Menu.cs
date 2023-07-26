@@ -10,3 +10,4 @@ namespace UniversityResturantInformation.Models
         public bool Status { get; set; }
     }
 }
+\\
