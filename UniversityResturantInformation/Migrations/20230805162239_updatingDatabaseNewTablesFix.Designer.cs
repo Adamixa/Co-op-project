@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityResturantInformation.Models;
 
 namespace UniversityResturantInformation.Migrations
 {
     [DbContext(typeof(RestaurantDB))]
-    partial class RestaurantDBModelSnapshot : ModelSnapshot
+    [Migration("20230805162239_updatingDatabaseNewTablesFix")]
+    partial class updatingDatabaseNewTablesFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,8 +124,14 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsActive")
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -196,8 +204,8 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoleNum")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -248,9 +256,6 @@ namespace UniversityResturantInformation.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("bit");
 
                     b.Property<int>("LMId")
                         .HasColumnType("int");

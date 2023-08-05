@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityResturantInformation.Models;
 
 namespace UniversityResturantInformation.Migrations
 {
     [DbContext(typeof(RestaurantDB))]
-    partial class RestaurantDBModelSnapshot : ModelSnapshot
+    [Migration("20230803020658_start")]
+    partial class start
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,58 +63,20 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<int>("Cal")
                         .HasColumnType("int");
 
-                    b.Property<int>("ItemCode")
-                        .HasColumnType("int");
-
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.List", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Lists");
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.List_Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("LId")
-                        .HasColumnType("int");
 
                     b.Property<int>("MId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("listId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("menuId")
+                    b.Property<int?>("MenuId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("listId");
+                    b.HasIndex("MenuId");
 
-                    b.HasIndex("menuId");
-
-                    b.ToTable("List_Menus");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Menu", b =>
@@ -122,40 +86,18 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsActive")
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.Menu_Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("itemId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("menuId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("itemId");
-
-                    b.HasIndex("menuId");
-
-                    b.ToTable("Menu_Items");
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Rating", b =>
@@ -169,9 +111,6 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rate")
                         .HasColumnType("int");
 
                     b.Property<int>("UId")
@@ -196,8 +135,8 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoleNum")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -249,10 +188,10 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("bit");
+                    b.Property<int>("MId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("LMId")
+                    b.Property<int?>("MenuId")
                         .HasColumnType("int");
 
                     b.Property<int>("UId")
@@ -261,14 +200,11 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("list_MenuId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("MenuId");
 
-                    b.HasIndex("list_MenuId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Votes");
                 });
@@ -280,26 +216,11 @@ namespace UniversityResturantInformation.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("UniversityResturantInformation.Models.List_Menu", b =>
+            modelBuilder.Entity("UniversityResturantInformation.Models.Item", b =>
                 {
-                    b.HasOne("UniversityResturantInformation.Models.List", "list")
+                    b.HasOne("UniversityResturantInformation.Models.Menu", "Menu")
                         .WithMany()
-                        .HasForeignKey("listId");
-
-                    b.HasOne("UniversityResturantInformation.Models.Menu", "menu")
-                        .WithMany()
-                        .HasForeignKey("menuId");
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.Menu_Item", b =>
-                {
-                    b.HasOne("UniversityResturantInformation.Models.Item", "item")
-                        .WithMany()
-                        .HasForeignKey("itemId");
-
-                    b.HasOne("UniversityResturantInformation.Models.Menu", "menu")
-                        .WithMany()
-                        .HasForeignKey("menuId");
+                        .HasForeignKey("MenuId");
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Rating", b =>
@@ -322,13 +243,13 @@ namespace UniversityResturantInformation.Migrations
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Vote", b =>
                 {
+                    b.HasOne("UniversityResturantInformation.Models.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId");
+
                     b.HasOne("UniversityResturantInformation.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.HasOne("UniversityResturantInformation.Models.List_Menu", "list_Menu")
-                        .WithMany()
-                        .HasForeignKey("list_MenuId");
                 });
 #pragma warning restore 612, 618
         }

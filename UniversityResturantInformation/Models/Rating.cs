@@ -7,7 +7,7 @@
         public int UId { get; set; }
         public Item Item { get; set; }
         public int IId { get; set; }
-
+        public int Rate { get; set; }
 
     }
 }

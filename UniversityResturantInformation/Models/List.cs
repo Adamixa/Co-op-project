@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace UniversityResturantInformation.Models
+﻿namespace UniversityResturantInformation.Models
 {
-    public class Menu
+    public class List
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }
