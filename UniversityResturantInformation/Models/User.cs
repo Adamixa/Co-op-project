@@ -3,9 +3,9 @@
     public class User
     {
         public int Id { get; set; }
-        public int UniId { get; set; }
+        public string Username { get; set; }
         public Role Role { get; set; }
-        public int RId { get; set; }
+        public int RoleId { get; set; }
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string Password { get; set; }

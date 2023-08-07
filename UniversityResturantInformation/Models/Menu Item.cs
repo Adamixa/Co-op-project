@@ -3,9 +3,9 @@
     public class Menu_Item
     {
         public int Id { get; set; }
-        public Item item { get; set; }
-        public int IId { get; set; }
-        public Menu menu { get; set; }
-        public int MId { get; set; }
+        public Item Item { get; set; }
+        public int ItemId { get; set; }
+        public Menu Menu { get; set; }
+        public int MenuId { get; set; }
     }
 }

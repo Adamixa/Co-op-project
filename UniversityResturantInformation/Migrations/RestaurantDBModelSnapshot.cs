@@ -38,10 +38,7 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -94,23 +91,17 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("LId")
+                    b.Property<int>("ListId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("listId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("menuId")
+                    b.Property<int>("MenuId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("listId");
+                    b.HasIndex("ListId");
 
-                    b.HasIndex("menuId");
+                    b.HasIndex("MenuId");
 
                     b.ToTable("List_Menus");
                 });
@@ -137,23 +128,17 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("itemId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("menuId")
+                    b.Property<int>("MenuId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("itemId");
+                    b.HasIndex("ItemId");
 
-                    b.HasIndex("menuId");
+                    b.HasIndex("MenuId");
 
                     b.ToTable("Menu_Items");
                 });
@@ -165,19 +150,13 @@ namespace UniversityResturantInformation.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ItemId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<int>("UId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -223,14 +202,11 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UniId")
-                        .HasColumnType("int");
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -252,23 +228,17 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<bool>("IsFinished")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LMId")
+                    b.Property<int>("List_MenuId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("list_MenuId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("List_MenuId");
 
-                    b.HasIndex("list_MenuId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Votes");
                 });
@@ -277,58 +247,78 @@ namespace UniversityResturantInformation.Migrations
                 {
                     b.HasOne("UniversityResturantInformation.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.List_Menu", b =>
                 {
-                    b.HasOne("UniversityResturantInformation.Models.List", "list")
+                    b.HasOne("UniversityResturantInformation.Models.List", "List")
                         .WithMany()
-                        .HasForeignKey("listId");
+                        .HasForeignKey("ListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("UniversityResturantInformation.Models.Menu", "menu")
+                    b.HasOne("UniversityResturantInformation.Models.Menu", "Menu")
                         .WithMany()
-                        .HasForeignKey("menuId");
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Menu_Item", b =>
                 {
-                    b.HasOne("UniversityResturantInformation.Models.Item", "item")
+                    b.HasOne("UniversityResturantInformation.Models.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("itemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("UniversityResturantInformation.Models.Menu", "menu")
+                    b.HasOne("UniversityResturantInformation.Models.Menu", "Menu")
                         .WithMany()
-                        .HasForeignKey("menuId");
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Rating", b =>
                 {
                     b.HasOne("UniversityResturantInformation.Models.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("UniversityResturantInformation.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.User", b =>
                 {
                     b.HasOne("UniversityResturantInformation.Models.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Vote", b =>
                 {
+                    b.HasOne("UniversityResturantInformation.Models.List_Menu", "List_Menu")
+                        .WithMany()
+                        .HasForeignKey("List_MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("UniversityResturantInformation.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("UniversityResturantInformation.Models.List_Menu", "list_Menu")
-                        .WithMany()
-                        .HasForeignKey("list_MenuId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
