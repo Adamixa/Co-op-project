@@ -155,5 +155,37 @@ namespace UniversityResturantInformation.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("Login")]
+        public async Task<IActionResult> Login(string username, string password, [Bind("Username , Password")] User user)
+        {
+            if (username != user.Username && password != user.Password)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                return await Index();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        IActionResult NotFound()
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }
+
+   
+
+

@@ -26,14 +26,11 @@ namespace UniversityResturantInformation.Controllers
         }
 
         
-            public async Task<IActionResult> Rate(int id, [Bind("Id,UserId,ItemId,Rate")] Item item)
+            public async Task<IActionResult> Rate()
             {
-                if (id != item.Id)
-                {
-                    return NotFound();
-                }
-                ViewData["ItemId"] = new SelectList(_context.Items, "Id", "Name", item.ItemName);
-                return View(item);
+            var item = _context.Items.Include(i => i.ItemName);
+                
+            return View(item);
             }
         
 
