@@ -47,7 +47,7 @@ namespace UniversityResturantInformation.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id");
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName");
             return View();
         }
 
@@ -176,11 +176,14 @@ namespace UniversityResturantInformation.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        IActionResult NotFound()
+        public IActionResult Admin()
         {
-            throw new NotImplementedException();
+            return View();
         }
+        //IActionResult NotFound()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
        
     }

@@ -45,6 +45,7 @@ namespace UniversityResturantInformation.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
+            
             return View();
         }
 
@@ -144,6 +145,28 @@ namespace UniversityResturantInformation.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult MenuItem()
+        {
+            ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
+            return View();
+        }
+        //public async Task<IActionResult> MenuItem([Bind("Id,ItemId,MenuId")] Menu_Item MI)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(MI);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
+        //    ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
+        //    return View(MI);
+        //}
+        public async Task<IActionResult> MIIndex()
+        {
+            return View(await _context.Items.ToListAsync());
+        }
         private bool ItemExists(int id)
         {
             return _context.Items.Any(e => e.Id == id);
