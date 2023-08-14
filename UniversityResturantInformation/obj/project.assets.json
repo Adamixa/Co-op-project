@@ -8951,19 +8951,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adami\\.nuget\\packages\\": {}
+    "C:\\Users\\adam\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
+      "projectUniqueName": "E:\\coop project repo\\UniversityResturantInformation\\Co-op\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
       "projectName": "UniversityResturantInformation",
-      "projectPath": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
-      "packagesPath": "C:\\Users\\adami\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\obj\\",
+      "projectPath": "E:\\coop project repo\\UniversityResturantInformation\\Co-op\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
+      "packagesPath": "C:\\Users\\adam\\.nuget\\packages\\",
+      "outputPath": "E:\\coop project repo\\UniversityResturantInformation\\Co-op\\UniversityResturantInformation\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\adami\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\adam\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8971,6 +8971,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -9037,7 +9038,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -81,7 +81,7 @@ namespace UniversityResturantInformation.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -117,7 +117,7 @@ namespace UniversityResturantInformation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -164,17 +164,16 @@ namespace UniversityResturantInformation.Controllers
         [HttpPost, ActionName("Login")]
         public async Task<IActionResult> Login(string username, string password, [Bind("Username , Password")] User user)
         {
-            if (username != user.Username && password != user.Password)
+            if (username != user.Username || password != user.Password)
             {
                 return NotFound();
             }
-
             else
             {
-                return await Index();
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction(nameof(Index));
+            
         }
         public IActionResult Admin()
         {
@@ -185,7 +184,7 @@ namespace UniversityResturantInformation.Controllers
         //    throw new NotImplementedException();
         //}
 
-       
+
     }
 }
 

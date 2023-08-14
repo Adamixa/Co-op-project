@@ -151,25 +151,82 @@ namespace UniversityResturantInformation.Controllers
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
             return View();
         }
-        //public async Task<IActionResult> MenuItem([Bind("Id,ItemId,MenuId")] Menu_Item MI)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(MI);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
-        //    ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
-        //    return View(MI);
-        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> MenuItem([Bind("Id,ItemId,MenuId")] Menu_Item MI)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(MI);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(MIIndex));
+            }
+            ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
+            ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
+            return View(MI);
+        }
         public async Task<IActionResult> MIIndex()
         {
-            return View(await _context.Items.ToListAsync());
+            return View(await _context.Menu_Items.Include(u=>u.Item).ToListAsync());
+        
         }
         private bool ItemExists(int id)
         {
             return _context.Items.Any(e => e.Id == id);
         }
+        public async Task<IActionResult> MenuItemEdit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var item = await _context.Menu_Items.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
+            return View(item);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MenuItemEdit(int id, [Bind("Id,ItemId, MenuId")] Menu_Item MenuItem)
+        {
+            if (id != MenuItem.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(MenuItem);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ItemExists(MenuItem.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(MIIndex));
+            }
+            ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
+            return View(MenuItem);
+        }
     }
-}
+    
+    }
+
