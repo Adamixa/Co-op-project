@@ -160,21 +160,25 @@ namespace UniversityResturantInformation.Controllers
         {
             return View();
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string username, string password)
 
-        [HttpPost, ActionName("Login")]
-        public async Task<IActionResult> Login(string username, string password, [Bind("Username , Password")] User user)
         {
-            if (username != user.Username && password != user.Password)
+            var check = _context.Users.Where(d => d.Username == username && d.Password == password);
+
+            if (check == null)
             {
-                return NotFound();
+                ViewBag.ErrorMessage = "Username or password is not correct";
+                return View("Login");
             }
 
             else
             {
-                return await Index();
+                return RedirectToAction(nameof(HomeController.Index));
             }
 
-            return RedirectToAction(nameof(Index));
         }
         public IActionResult Admin()
         {

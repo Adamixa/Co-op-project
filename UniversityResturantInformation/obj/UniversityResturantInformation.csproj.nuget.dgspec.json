@@ -1,27 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {}
+    "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {
+    "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
+        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
         "projectName": "UniversityResturantInformation",
-        "projectPath": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
-        "packagesPath": "C:\\Users\\adami\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\obj\\",
+        "projectPath": "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
+        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\adami\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -88,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

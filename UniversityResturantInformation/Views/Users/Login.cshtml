@@ -24,15 +24,14 @@
                 <h3 class="m-b-15">Login</h3>
                 <hr>
                 <!-- Login Form -->
-                <form>
+                <form asp-action="Login">
                     <div class="form-group">
-                        <input type="text" id="login" class="form-control" name="login" placeholder="ID">
+                        <input type="text" id="login" class="form-control" name="username" placeholder="ID">
                     </div>
                     <div class="form-group">
-                        <input type="password" id="login" class="form-control" name="login" placeholder="Password">
+                        <input type="password" id="login" class="form-control" name="password" placeholder="Password">
                     </div>
                     <input type="submit" class="fadeIn fourth" value="LogIn">        
-                    <a class="fadeIn fourth" asp-action="Login">Login</a>
 
                 </form>
                 <!-- Remind Passowrd -->
