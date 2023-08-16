@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace UniversityResturantInformation
 {
@@ -25,10 +26,27 @@ namespace UniversityResturantInformation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.AccessDeniedPath = "/Home/Error";
+                options.LoginPath = "/account/login";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                //options.LoginPath = "/accounts/ErrorNotLoggedIn";
+                //options.LogoutPath = "account/logout";
+            });
+
             services.AddDbContext<RestaurantDB>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("RestaurantDB")));
             services.AddControllersWithViews();
+            services.AddDistributedMemoryCache();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("MustBeAdmin", p => p.RequireAuthenticatedUser().RequireRole("Admin"));
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +66,7 @@ namespace UniversityResturantInformation
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

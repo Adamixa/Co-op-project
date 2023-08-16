@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -166,19 +170,94 @@ namespace UniversityResturantInformation.Controllers
         public async Task<IActionResult> Login(string username, string password)
 
         {
-            var check = _context.Users.Where(d => d.Username == username && d.Password == password);
+
+            #region Login/Logout
+            [HttpGet]
+            [AllowAnonymous]
+            public IActionResult Login()
+            {
+                try
+                {
+                    string UserName = User.FindFirst(ClaimTypes.Name).Value;
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    return View();
+                }
+
+            }
+            [HttpPost]
+            [AllowAnonymous]
+            [ValidateAntiForgeryToken]
+
+            public async Task<IActionResult> Login(string username, string password)
+            {
+
+                try
+                {
+                    var check = _context.Users.Where(d => d.Username == username && d.Password == password).SingleOrDefault();
+
+                    if (check == null)
+                    {
+                        ViewData["Login_error"] = "خطأ: اسم المستخدم أو كلمة المرور غير صحيحة";
+                        return View();
+                    }
+                    else
+                    {
+                        var identity = new ClaimsIdentity(new[]
+                        {
+                    new Claim(ClaimTypes.Name, check.Username),
+                    new Claim(ClaimTypes.Role, check.Role.RoleName),
+                    new Claim(ClaimTypes.NameIdentifier, check.Id.ToString()),
+                    new Claim(ClaimTypes.GivenName, check.Name)
+
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                        var principal = new ClaimsPrincipal(identity);
+
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            principal);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                catch
+                {
+                    ViewData["Login_error"] = "خطأ: اسم المستخدم أو كلمة المرور غير صحيحة";
+                    return View();
+                }
+
+            }
+
+
+            [HttpGet]
+            public async Task<IActionResult> Logout()
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction(nameof(AccountController.Login), "Account");
+            }
+
+
+
+            #endregion Login/Logout
+
+
+
+
+
+            var check = _context.Users.Where(d => d.Username == username && d.Password == password).SingleOrDefault();
 
             if (check == null)
             {
                 ViewBag.ErrorMessage = "Username or password is not correct";
-                return View("Login");
+                return View();
             }
 
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index));
-            }
-
+            
+                return RedirectToAction("Index" , "Home");
+            
         }
         public IActionResult Admin()
         {

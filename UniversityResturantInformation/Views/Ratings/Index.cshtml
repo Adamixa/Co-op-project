@@ -42,12 +42,21 @@
 
           <form>
 
-              
-              <h3>Basic Example 1</h3>
-              <label for="input-1" class="control-label">Rate This</label>
-              <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
-              <br>
-              <br>
+                   
+
+
+
+                            <ul>
+                                @foreach (var item in Model)
+                                {
+                                    <h3>@item.</h3>
+                                    <label for="input-1" class="control-label">Rate This</label>
+                                    <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                                    <br>
+                                    <br>
+                                }
+                            </ul>
+           
 
               </form>
                       <br>
