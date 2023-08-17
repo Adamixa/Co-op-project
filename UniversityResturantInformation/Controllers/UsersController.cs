@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using UniversityResturantInformation.Models;
+using System.Security.Principal;
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -159,54 +160,44 @@ namespace UniversityResturantInformation.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
-        
+
+
+
+        //public async Task<IActionResult> Login(string username, string password)
+
+        //{
+
+        #region Login/Logout
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password)
-
-        {
-
-            #region Login/Logout
-            [HttpGet]
-            [AllowAnonymous]
-            public IActionResult Login()
+            try
             {
-                try
-                {
-                    string UserName = User.FindFirst(ClaimTypes.Name).Value;
-                    return RedirectToAction("Index", "Home");
-                }
-                catch
-                {
-                    return View();
-                }
-
+                string UserName = User.FindFirst(ClaimTypes.Name).Value;
+                return RedirectToAction("Index", "Home");
             }
-            [HttpPost]
-            [AllowAnonymous]
-            [ValidateAntiForgeryToken]
-
-            public async Task<IActionResult> Login(string username, string password)
+            catch
             {
+                return View();
+            }
 
-                try
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Login(string username, string password)
+        {
+            try
+            {
+                User check = _context.Users.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
+                User checkS = _context.Users.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
+                //Companies checkC = _context.Companies.Where(u => u.Email == Email && u.PassWord == Password).SingleOrDefault();
+                if (check != null)
                 {
-                    var check = _context.Users.Where(d => d.Username == username && d.Password == password).SingleOrDefault();
-
-                    if (check == null)
+                    var identity = new ClaimsIdentity(new[]
                     {
-                        ViewData["Login_error"] = "خطأ: اسم المستخدم أو كلمة المرور غير صحيحة";
-                        return View();
-                    }
-                    else
-                    {
-                        var identity = new ClaimsIdentity(new[]
-                        {
                     new Claim(ClaimTypes.Name, check.Username),
                     new Claim(ClaimTypes.Role, check.Role.RoleName),
                     new Claim(ClaimTypes.NameIdentifier, check.Id.ToString()),
@@ -214,64 +205,90 @@ namespace UniversityResturantInformation.Controllers
 
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                        var principal = new ClaimsPrincipal(identity);
+                    var principal = new ClaimsPrincipal(identity);
 
-                        await HttpContext.SignInAsync(
-                            CookieAuthenticationDefaults.AuthenticationScheme,
-                            principal);
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal);
 
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Admin", "Users");
+
                 }
-                catch
+                 else if (checkS != null)
                 {
-                    ViewData["Login_error"] = "خطأ: اسم المستخدم أو كلمة المرور غير صحيحة";
+                    var identity = new ClaimsIdentity(new[]
+                    {
+                    new Claim(ClaimTypes.Name, checkS.Username),
+                    new Claim(ClaimTypes.Role, checkS.Role.RoleName),
+                    new Claim(ClaimTypes.NameIdentifier, checkS.Id.ToString()),
+                    new Claim(ClaimTypes.GivenName, checkS.Name)
+
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal);
+
+                    return RedirectToAction("Index", "Home");
+
+                }
+
+                else
+                {
+                    ViewData["Login_error"] = "ERORR: Username or password is not correct";
                     return View();
                 }
-
             }
-
-
-            [HttpGet]
-            public async Task<IActionResult> Logout()
+            catch
             {
-                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                return RedirectToAction(nameof(AccountController.Login), "Account");
-            }
-
-
-
-            #endregion Login/Logout
-
-
-
-
-
-            var check = _context.Users.Where(d => d.Username == username && d.Password == password).SingleOrDefault();
-
-            if (check == null)
-            {
-                ViewBag.ErrorMessage = "Username or password is not correct";
+                ViewData["Login_error"] = "ERORR: Username or password is not correct";
                 return View();
             }
 
-            
-                return RedirectToAction("Index" , "Home");
-            
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(Login));
+        }
+
+
+
+        #endregion Login/Logout
+
+
+
+
+
+
+
+
+
+        //    var check = _context.Users.Where(d => d.Username == username && d.Password == password).SingleOrDefault();
+
+        //    if (check == null)
+        //    {
+        //        ViewBag.ErrorMessage = "Username or password is not correct";
+        //        return View();
+        //    }
+
+
+        //        return RedirectToAction("Index" , "Home");
+
+        //}
+        //[Authorize(Roles = "admin")]
         public IActionResult Admin()
         {
             return View();
         }
-        //IActionResult NotFound()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
        
     }
+
+
 }
-
-   
-
 
