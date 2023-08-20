@@ -191,9 +191,7 @@ namespace UniversityResturantInformation.Controllers
         {
             try
             {
-                User check = _context.Users.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
-                User checkS = _context.Users.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
-                //Companies checkC = _context.Companies.Where(u => u.Email == Email && u.PassWord == Password).SingleOrDefault();
+                var check = _context.Users.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
                 if (check != null)
                 {
                     var identity = new ClaimsIdentity(new[]
@@ -214,26 +212,26 @@ namespace UniversityResturantInformation.Controllers
                     return RedirectToAction("Admin", "Users");
 
                 }
-                 else if (checkS != null)
-                {
-                    var identity = new ClaimsIdentity(new[]
-                    {
-                    new Claim(ClaimTypes.Name, checkS.Username),
-                    new Claim(ClaimTypes.Role, checkS.Role.RoleName),
-                    new Claim(ClaimTypes.NameIdentifier, checkS.Id.ToString()),
-                    new Claim(ClaimTypes.GivenName, checkS.Name)
+                // else if (checkS != null)
+                //{
+                //    var identity = new ClaimsIdentity(new[]
+                //    {
+                //    new Claim(ClaimTypes.Name, checkS.Username),
+                //    new Claim(ClaimTypes.Role, checkS.Role.RoleName),
+                //    new Claim(ClaimTypes.NameIdentifier, checkS.Id.ToString()),
+                //    new Claim(ClaimTypes.GivenName, checkS.Name)
 
-                }, CookieAuthenticationDefaults.AuthenticationScheme);
+                //}, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var principal = new ClaimsPrincipal(identity);
+                //    var principal = new ClaimsPrincipal(identity);
 
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        principal);
+                //    await HttpContext.SignInAsync(
+                //        CookieAuthenticationDefaults.AuthenticationScheme,
+                //        principal);
 
-                    return RedirectToAction("Index", "Home");
+                //    return RedirectToAction("Index", "Home");
 
-                }
+                //}
 
                 else
                 {
@@ -257,7 +255,7 @@ namespace UniversityResturantInformation.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-
+        
 
         #endregion Login/Logout
 
@@ -286,7 +284,12 @@ namespace UniversityResturantInformation.Controllers
         {
             return View();
         }
-       
+
+        public IActionResult DataEntry()
+        {
+            return View();
+        }
+
     }
 
 

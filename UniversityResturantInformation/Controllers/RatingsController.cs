@@ -32,12 +32,12 @@ namespace UniversityResturantInformation.Controllers
         }
 
 
-        public async Task<IActionResult> RateItem()
-        {
-            var item = _context.Items.Include(i => i.Id);
+        //public async Task<IActionResult> RateItem()
+        //{
+        //    var item = _context.Items.Include(i => i.Id);
 
-            return View(item);
-        }
+        //    return View(item);
+        //}
 
 
 

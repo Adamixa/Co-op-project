@@ -1722,3 +1722,5 @@ C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.dll
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.pdb
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.genruntimeconfig.cache
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\DataEntryLayout.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\DataEntry.cshtml.g.cs
