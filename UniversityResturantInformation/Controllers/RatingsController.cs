@@ -28,7 +28,9 @@ namespace UniversityResturantInformation.Controllers
         
         public IActionResult Rate()
         {
-            return View();
+            var item = _context.Items;
+
+            return View(item);
         }
 
 

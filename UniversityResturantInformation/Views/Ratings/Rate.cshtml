@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UniversityResturantInformation.Models.Rating>
+﻿@model IEnumerable<UniversityResturantInformation.Models.Item>
 
 @{
     Layout = "_Layout";
@@ -43,28 +43,26 @@
 
 
                 <div class="container">
-
-                    <form>
-                     
                         <h3>
-                            @*@foreach (var item in Model)
+                            @foreach (var item in Model)
                             {
                                 <div>
                                     <!-- Display properties of each Rating object -->
                                     <p></p>
-                                    <p>Item Name: @item.Item.ItemName</p>
+                                    <p>Item Name: @item.ItemName</p>
+                                    <label for="input-1" class="control-label">
+                                    <a id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" asp-action="submit"></a>
+
                                     <!-- Other properties of Rating and related Item -->
                                 </div>
-                            }*@
+                            }
                         </h3>
-                        <label for="input-1" class="control-label">
+                        @* <label for="input-1" class="control-label">
                             
                         </label>
-                        <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                        <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1"> *@
                         <br>
                         <br>
-
-                    </form>
                     <br>
                     <br>
                     <hr>

@@ -191,7 +191,7 @@ namespace UniversityResturantInformation.Controllers
         {
             try
             {
-                var check = _context.Users.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
+                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && u.Password == password).SingleOrDefault();
                 if (check != null)
                 {
                     var identity = new ClaimsIdentity(new[]
@@ -279,12 +279,12 @@ namespace UniversityResturantInformation.Controllers
         //        return RedirectToAction("Index" , "Home");
 
         //}
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult Admin()
         {
             return View();
         }
-
+        [Authorize(Roles = "DataEntry")]
         public IActionResult DataEntry()
         {
             return View();

@@ -116,6 +116,9 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Meal")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
