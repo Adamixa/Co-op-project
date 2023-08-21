@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,7 +23,6 @@ namespace UniversityResturantInformation.Controllers
             _context = context; 
         }
         //[Authorize(Roles = "admin , student")]
-
         public async Task<IActionResult> Index()
         {
             ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
@@ -39,6 +39,18 @@ namespace UniversityResturantInformation.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> complaint(Compliant compliant)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Complaints.Add(compliant);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", compliant.UserId);
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

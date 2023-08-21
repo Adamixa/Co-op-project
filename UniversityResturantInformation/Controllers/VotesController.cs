@@ -22,8 +22,14 @@ namespace UniversityResturantInformation.Controllers
         public async Task<IActionResult> Index()
         {
             var restaurantDB = _context.Votes.Include(v => v.List_Menu).Include(v => v.User);
-            return View(await restaurantDB.ToListAsync());
+            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2)
+                .ToListAsync();
+
+            
+            return View();
         }
+        
 
         // GET: Votes/Details/5
         public async Task<IActionResult> Details(int? id)

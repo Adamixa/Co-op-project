@@ -74,7 +74,7 @@ namespace UniversityResturantInformation
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Users}/{action=Login}/{id?}");
-            });
+        });
         }
     }
 }

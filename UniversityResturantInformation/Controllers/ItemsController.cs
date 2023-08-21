@@ -226,6 +226,14 @@ namespace UniversityResturantInformation.Controllers
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
             return View(MenuItem);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Vote()
+        {
+
+            return View();
+        }
     }
 
 }

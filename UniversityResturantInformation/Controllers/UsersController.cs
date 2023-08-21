@@ -199,7 +199,8 @@ namespace UniversityResturantInformation.Controllers
                     new Claim(ClaimTypes.Name, check.Username),
                     new Claim(ClaimTypes.Role, check.Role.RoleName),
                     new Claim(ClaimTypes.NameIdentifier, check.Id.ToString()),
-                    new Claim(ClaimTypes.GivenName, check.Name)
+                    new Claim(ClaimTypes.GivenName, check.Name),
+                    new Claim(ClaimTypes.Email, check.Email.ToString())
 
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
