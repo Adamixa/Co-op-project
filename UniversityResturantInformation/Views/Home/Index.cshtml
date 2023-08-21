@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<UniversityResturantInformation.Models.Menu_Item>
+
+@{
     Layout = "_Layout";
 }
 <!-- ======= Hero Section ======= -->
@@ -154,6 +156,12 @@
 
               <div class="col-lg-4 menu-item">
                 <a href="~/img/menu/menu-item-5.png" class="glightbox"><img src="~/img/menu/menu-item-5.png" class="menu-img img-fluid" alt=""></a>
+                            @{
+                                foreach (var menu in Model)
+                                {
+                                    <p>Item Name: @menu.Item.ItemName</p>
+                                }
+                            }
                 <h4>Eos Luibusdam</h4>
                 <p class="ingredients">
                   Lorem, deren, trataro, filede, nerada

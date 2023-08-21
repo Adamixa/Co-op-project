@@ -1724,3 +1724,4 @@ C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\refs\WindowsBase.dll
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\UniversityResturantInformation.Views.dll
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\UniversityResturantInformation.Views.pdb
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MenuItemEdit.cshtml.g.cs
