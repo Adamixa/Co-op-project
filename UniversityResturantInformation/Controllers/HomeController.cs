@@ -25,10 +25,18 @@ namespace UniversityResturantInformation.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var menu = await _context.Menu_Items.Include(d => d.Item)
-                .Include(m =>m.Menu).Where(mx => mx.Menu.IsActive == true)
+            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2)
                 .ToListAsync();
-            return View(menu);
+            ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1)
+                .ToListAsync();
+            ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 3)
+                .ToListAsync();
+
+            
+            return View();
         }
 
         public IActionResult Privacy()
@@ -42,9 +50,6 @@ namespace UniversityResturantInformation.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Menu()
-        {
-            return View();
-        }
+        
     }
 }
