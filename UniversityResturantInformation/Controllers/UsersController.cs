@@ -209,8 +209,21 @@ namespace UniversityResturantInformation.Controllers
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         principal);
+                    if(check.RoleId == 1)
+                    {
+                        return RedirectToAction("Admin", "Users");
+                    }
 
-                    return RedirectToAction("Admin", "Users");
+                    else if (check.RoleId == 2)
+                    {
+                        return RedirectToAction("DataEntry", "Users");
+                    }
+
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
 
                 }
                 // else if (checkS != null)
@@ -280,7 +293,7 @@ namespace UniversityResturantInformation.Controllers
         //        return RedirectToAction("Index" , "Home");
 
         //}
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Admin()
         {
             return View();

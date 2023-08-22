@@ -39,16 +39,40 @@ namespace UniversityResturantInformation.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Complaint(Compliant compliant)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Complaints.Add(compliant);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["UserId"] = new SelectList(_context.Users, "Username", "Id", compliant.UserId);
+        //    return View();
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> complaint(Compliant compliant)
+        public async Task<IActionResult> complaint(int Id, int UserId, string Title, string Description, int Catagory, DateTime Date)
         {
             if (ModelState.IsValid)
             {
-                _context.Complaints.Add(compliant);
+                Compliant cm = new Compliant();
+                cm.Id = Id;
+                cm.User.Id = UserId;
+                cm.Title = Title;
+                cm.Description = Description;
+                cm.Category = Catagory;
+                cm.Date = Date;
+
+
+
+                _context.Complaints.Add(cm);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", compliant.UserId);
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", compliant.UserId);
             return View();
         }
         public IActionResult Privacy()

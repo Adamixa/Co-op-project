@@ -1,7 +1,16 @@
-﻿@model UniversityResturantInformation.Models.Item
+﻿@using System.Security.Claims;
+@model UniversityResturantInformation.Models.Item
 
 @{
-    Layout = "DataEntryLayout";
+    if (User.FindFirst(ClaimTypes.Role).Value == "DataEntry")
+    {
+        Layout = "DataEntryLayout";
+    }
+    else if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+    {
+        Layout = "AdminLayout";
+    }
+
     ViewData["Title"] = "Create";
 }
 
