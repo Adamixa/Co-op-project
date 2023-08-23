@@ -1,7 +1,8 @@
 ﻿@using System.Security.Claims;
-@model IEnumerable<UniversityResturantInformation.Models.Item>
+@model IEnumerable<UniversityResturantInformation.Models.Menu>
 
 @{
+    ViewData["Title"] = "Index";
     if (User.FindFirst(ClaimTypes.Role).Value == "DataEntry")
     {
         Layout = "DataEntryLayout";
@@ -10,7 +11,6 @@
     {
         Layout = "AdminLayout";
     }
-    ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
@@ -22,13 +22,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ItemCode)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemName)
+                @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cal)
+                @Html.DisplayNameFor(model => model.Meal)
             </th>
             <th></th>
         </tr>
@@ -37,13 +37,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemCode)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
+                @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cal)
+                @Html.DisplayFor(modelItem => item.Meal)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -25,12 +25,14 @@ namespace UniversityResturantInformation.Controllers
         //[Authorize(Roles = "admin , student")]
         public async Task<IActionResult> Index()
         {
-            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
-                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2)
-                .ToListAsync();
             ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
                 .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1)
                 .ToListAsync();
+
+            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2)
+                .ToListAsync();
+            
             ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
                 .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 3)
                 .ToListAsync();

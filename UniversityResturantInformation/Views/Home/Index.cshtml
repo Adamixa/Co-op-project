@@ -181,7 +181,7 @@
         </div>
       </section>
       <!-- End Gallery Section --> 
-      @{ if (User.FindFirst(ClaimTypes.Role).Value == "student") {
+      @{ if (User.FindFirst(ClaimTypes.Role).Value == "Student") {
       <!-- ======= Contact Section ======= -->
       <section id="contact" class="contact">
         <div class="container" data-aos="fade-up">
@@ -235,39 +235,39 @@
             </div>
             <!-- End Info Item -->
           </div>
-          <form asp-action="Complaint" class="php-email-form p-3 p-md-4">
-            <div class="row">
-              <div class="col-xl-6 form-group">
-                <label class="control-label">Id</label>
-                <input type="submit" name="UserId" class="form-control" id="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
-              </div>
-              <div class="col-xl-6 form-group">
-                <label class="control-label">Name</label>
-                <input type="submit" name="name" class="form-control" id="name" value=" @User.FindFirst(ClaimTypes.GivenName).Value">
-              </div>
-              <!-- <div class="col-xl-6 form-group"><label class="control-label">Email</label><input type="submit" name="email" class="form-control" id="email" value="  "></div>-->
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="Title" id="Title" placeholder="Title" required>
-            </div>
-            <div class="form-group">
-              <select type="text" class="form-control" name="Category" id="Category">
-                <option>Service</option>
-                <option>Food Quality</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-            </div>
-            <div class="my-3">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
-            </div>
-            <div class="text-center">
-              <button type="submit">Send Message</button>
-            </div>
-          </form>
+                    <form asp-action="Complaint" class="php-email-form p-3 p-md-4">
+
+                        <div class="row">
+                            <div class="col-xl-6 form-group">
+                                <label class="control-label">Id</label>
+                                <input type="submit" name="UserId" class="form-control" id="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
+                            </div>
+
+                            <!-- <div class="col-xl-6 form-group"><label class="control-label">Email</label><input type="submit" name="email" class="form-control" id="email" value="  "></div>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Title" id="Title" placeholder="Title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" name="Description" rows="5" placeholder="Description" required>
+                        </div>
+
+                        <div class="form-group">
+                            <select type="text" class="form-control" name="Category" id="Category">
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="Date" id="Date" placeholder="Date" required>
+                        </div>
+
+
+                        <input type="submit" value="Send Message">
+
+                    </form>
           <!--End Contact Form -->
         </div>
       </section>

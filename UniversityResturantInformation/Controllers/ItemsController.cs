@@ -227,6 +227,7 @@ namespace UniversityResturantInformation.Controllers
             return View(MenuItem);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Vote()

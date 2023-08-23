@@ -2218,7 +2218,6 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Edit.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Index.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Rate.cshtml.g.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Rating\Index.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\DataEntryLayout.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -2246,3 +2245,8 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.pdb
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.genruntimeconfig.cache
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminLayout.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Create.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Delete.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Details.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Edit.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Index.cshtml.g.cs

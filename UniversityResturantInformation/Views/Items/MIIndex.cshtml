@@ -1,10 +1,18 @@
-﻿@* BROKEN *@
+﻿@using System.Security.Claims;
+
 
 @model IEnumerable<UniversityResturantInformation.Models.Menu_Item>
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "DataEntryLayout";
+    if (User.FindFirst(ClaimTypes.Role).Value == "DataEntry")
+    {
+        Layout = "DataEntryLayout";
+    }
+    else if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+    {
+        Layout = "AdminLayout";
+    }
 }
 
 <h1>Index</h1>

@@ -1,8 +1,16 @@
-﻿@model UniversityResturantInformation.Models.Menu_Item
+﻿@using System.Security.Claims;
+@model UniversityResturantInformation.Models.Menu_Item
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "DataEntryLayout";
+    if (User.FindFirst(ClaimTypes.Role).Value == "DataEntry")
+    {
+        Layout = "DataEntryLayout";
+    }
+    else if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+    {
+        Layout = "AdminLayout";
+    }
 }
 
 <h1>Create</h1>
