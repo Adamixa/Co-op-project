@@ -1757,6 +1757,15 @@ C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Compliants\Details.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Compliants\Edit.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Compliants\Index.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.csproj.AssemblyReference.cache
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.GeneratedMSBuildEditorConfig.editorconfig
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.AssemblyInfoInputs.cache
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.AssemblyInfo.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.csproj.CoreCompileInputs.cache
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.MvcApplicationPartsAssemblyInfo.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.MvcApplicationPartsAssemblyInfo.cache
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.RazorAssemblyInfo.cache
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.RazorAssemblyInfo.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\appsettings.Development.json
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\appsettings.json
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\libman.json
@@ -2179,15 +2188,6 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.csproj.AssemblyReference.cache
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.GeneratedMSBuildEditorConfig.editorconfig
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.AssemblyInfoInputs.cache
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.AssemblyInfo.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.csproj.CoreCompileInputs.cache
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.MvcApplicationPartsAssemblyInfo.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.MvcApplicationPartsAssemblyInfo.cache
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.RazorAssemblyInfo.cache
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.RazorAssemblyInfo.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\staticwebassets\UniversityResturantInformation.StaticWebAssets.Manifest.cache
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\staticwebassets\UniversityResturantInformation.StaticWebAssets.Pack.cache
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.UniversityResturantInformation.Microsoft.AspNetCore.StaticWebAssets.props
@@ -2212,12 +2212,18 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MenuItem.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MenuItemEdit.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MIIndex.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Create.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Delete.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Details.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Edit.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Index.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Create.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Delete.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Details.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Edit.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Index.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Rate.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminLayout.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\DataEntryLayout.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -2244,9 +2250,3 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.dll
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.pdb
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.genruntimeconfig.cache
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminLayout.cshtml.g.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Create.cshtml.g.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Delete.cshtml.g.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Details.cshtml.g.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Edit.cshtml.g.cs
-E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Index.cshtml.g.cs

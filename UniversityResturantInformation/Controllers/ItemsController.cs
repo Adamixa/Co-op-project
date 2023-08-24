@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using UniversityResturantInformation.Models;
+using UniversityResturantInformation.ViewModel;
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -147,6 +148,7 @@ namespace UniversityResturantInformation.Controllers
 
         public IActionResult MenuItem()
         {
+            ViewBag.Item = _context.Items;
             ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
             return View();
@@ -154,19 +156,38 @@ namespace UniversityResturantInformation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> MenuItem([Bind("Id,ItemId,MenuId")] Menu_Item MI)
+        public async Task<IActionResult> MenuItem(string tableInfo, int MenuId)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            var itemInfo = JsonConvert.DeserializeObject<List<MenuItemViewModel>>(tableInfo);
+            try
             {
-                _context.Add(MI);
-                await _context.SaveChangesAsync();
+                // To Add Into List Table
+                //
+                // To Add Into Item Table
+                foreach (var item in itemInfo)
+                {
+                    Menu_Item menu_Item = new Menu_Item();
+                    menu_Item.ItemId = item.ItemId;
+                    menu_Item.MenuId = MenuId;
+                    _context.Add(menu_Item);
+                    _context.SaveChanges();
+                }
+
                 return RedirectToAction(nameof(MIIndex));
             }
-            ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
-            ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
-            return View(MI);
+            catch
+            {
+                return RedirectToAction(nameof(MIIndex));
+            }
         }
+        //await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(MIIndex));
+            //}
+            //ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
+            //ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
+            //return View(MI);
         public async Task<IActionResult> MIIndex()
         {
             return View(await _context.Menu_Items.Include(u => u.Item).ToListAsync());

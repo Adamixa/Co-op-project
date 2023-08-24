@@ -2,10 +2,9 @@
 
 @{
     Layout = "_Layout";
-}
-@{
     ViewData["Title"] = "Details";
 }
+
 
 
 <!doctype html>
@@ -43,20 +42,20 @@
 
 
                 <div class="container">
-                        <h3>
+                        
                             @foreach (var item in Model)
                             {
                                 <div>
                                     <!-- Display properties of each Rating object -->
                                     <p></p>
                                     <p>Item Name: @item.ItemName</p>
-                                    <label for="input-1" class="control-label">
-                                    <a id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" asp-action="submit"></a>
+                                    <label for="input-1" class="control-label"></label>
+                                    <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" asp-action="submit"></input>
 
                                     <!-- Other properties of Rating and related Item -->
                                 </div>
                             }
-                        </h3>
+                        
                         @* <label for="input-1" class="control-label">
                             
                         </label>
@@ -70,6 +69,7 @@
                 </div>
 
             </div>
+        </div>
     </section>
     <br />
     <br />

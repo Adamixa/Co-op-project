@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using UniversityResturantInformation.Models;
 
@@ -55,27 +56,22 @@ namespace UniversityResturantInformation.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> complaint(int Id, int UserId, string Title, string Description, int Catagory, DateTime Date)
+        public async Task<IActionResult> Complaint(string Title, string Description, int Category)
         {
-            if (ModelState.IsValid)
-            {
-                Compliant cm = new Compliant();
-                cm.Id = Id;
-                cm.User.Id = UserId;
-                cm.Title = Title;
-                cm.Description = Description;
-                cm.Category = Catagory;
-                cm.Date = Date;
-
-
-
-                _context.Complaints.Add(cm);
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ModelState.IsValid)
+            //{
+            Compliant cm = new Compliant();
+            cm.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            cm.Title = Title;
+            cm.Description = Description;
+            cm.Category = Category;
+            cm.Date = DateTime.Now;
+            _context.Complaints.Add(cm);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            //}
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", compliant.UserId);
-            return View();
+            //return View();
         }
         public IActionResult Privacy()
         {

@@ -59,7 +59,7 @@
       </div>
     </section>
     <!-- End About Section -->
-    </div>
+    
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
       <div class="container" data-aos="fade-up">
@@ -136,9 +136,8 @@
       </div>
     </section>
     <!-- End Menu Section -->
-    < </div>
-      </div>
-      </section>
+   
+      
       <!-- End Book A Table Section -->
       <!-- ======= Gallery Section ======= -->
       <section id="gallery" class="gallery section-bg">
@@ -228,45 +227,35 @@
                 <div>
                   <h3>Opening Hours</h3>
                   <div>
-                    <strong>Mon-Sat:</strong> 11AM - 23PM; <strong>Sunday:</strong> Closed
+                                        <strong>Sat-Thursday: </strong>Breakfast: 6 - 8 AM<br>Lunch: 11 AM - 2 PM<br>Dinner: 6 - 8 PM; <strong><br>Friday:</strong> Closed
                   </div>
                 </div>
               </div>
             </div>
             <!-- End Info Item -->
           </div>
-                    <form asp-action="Complaint" class="php-email-form p-3 p-md-4">
-
+                    <form asp-action="Complaint" class="p-3 p-md-4">
                         <div class="row">
-                            <div class="col-xl-6 form-group">
-                                <label class="control-label">Id</label>
-                                <input type="submit" name="UserId" class="form-control" id="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
+                            <div class="form-group">
+                                <label class="control-label">Title</label>
+                                <input type="text" class="form-control" name="Title" id="Title" placeholder="Title">
                             </div>
 
-                            <!-- <div class="col-xl-6 form-group"><label class="control-label">Email</label><input type="submit" name="email" class="form-control" id="email" value="  "></div>-->
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <input class="form-control" name="Description" rows="5" placeholder="Description">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Category</label>
+                                <select class="form-control" name="Category" id="Category">
+                                    <option value="1">1</option>
+                                    <option value="2">two</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="Title" id="Title" placeholder="Title" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input class="form-control" name="Description" rows="5" placeholder="Description" required>
-                        </div>
-
-                        <div class="form-group">
-                            <select type="text" class="form-control" name="Category" id="Category">
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="date" class="form-control" name="Date" id="Date" placeholder="Date" required>
-                        </div>
-
-
-                        <input type="submit" value="Send Message">
-
+                        <br>
+                        <input type="submit" value="Send Message" class="btn btn-danger">
                     </form>
           <!--End Contact Form -->
         </div>
@@ -301,7 +290,7 @@
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM <br> Friday: Closed
+                       <strong>Sat-Thursday: </strong>Breakfast: 6 - 8 AM<br>Lunch: 11 AM - 2 PM<br>Dinner: 6 - 8 PM; <strong> <br>Friday:</strong> Closed
             </p>
           </div>
         </div>

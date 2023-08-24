@@ -26,11 +26,15 @@ namespace UniversityResturantInformation.Controllers
         }
 
         
-        public IActionResult Rate()
+        public /*async*/ IActionResult Rate()
         {
-            var item = _context.Items;
+            var Item = _context.Items;
+            //ViewBag.Rate = await _context.Menu_Items.Include(d => d)
+            //    .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true)
+            //    .ToListAsync();
+          
 
-            return View(item);
+            return View(Item);
         }
 
 
