@@ -69,7 +69,7 @@ namespace UniversityResturantInformation.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("UniversityResturantInformation.Models.List", b =>
+            modelBuilder.Entity("UniversityResturantInformation.Models.Menu", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,41 +79,7 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Lists");
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.List_Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ListId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListId");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("List_Menus");
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsVoteable")
                         .HasColumnType("bit");
 
                     b.Property<int>("Meal")
@@ -231,7 +197,7 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<bool>("IsFinished")
                         .HasColumnType("bit");
 
-                    b.Property<int>("List_MenuId")
+                    b.Property<int>("MenuId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -239,7 +205,7 @@ namespace UniversityResturantInformation.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("List_MenuId");
+                    b.HasIndex("MenuId");
 
                     b.HasIndex("UserId");
 
@@ -251,21 +217,6 @@ namespace UniversityResturantInformation.Migrations
                     b.HasOne("UniversityResturantInformation.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("UniversityResturantInformation.Models.List_Menu", b =>
-                {
-                    b.HasOne("UniversityResturantInformation.Models.List", "List")
-                        .WithMany()
-                        .HasForeignKey("ListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UniversityResturantInformation.Models.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -311,9 +262,9 @@ namespace UniversityResturantInformation.Migrations
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Vote", b =>
                 {
-                    b.HasOne("UniversityResturantInformation.Models.List_Menu", "List_Menu")
+                    b.HasOne("UniversityResturantInformation.Models.Menu", "Menu")
                         .WithMany()
-                        .HasForeignKey("List_MenuId")
+                        .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

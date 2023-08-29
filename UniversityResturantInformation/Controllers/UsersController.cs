@@ -209,12 +209,12 @@ namespace UniversityResturantInformation.Controllers
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         principal);
-                    if(check.RoleId == 1)
+                    if(check.Role.RoleName == "Admin")
                     {
                         return RedirectToAction("Admin", "Users");
                     }
 
-                    else if (check.RoleId == 2)
+                    else if (check.Role.RoleName == "DataEntry")
                     {
                         return RedirectToAction("DataEntry", "Users");
                     }

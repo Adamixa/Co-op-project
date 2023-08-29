@@ -153,7 +153,19 @@
                 </ul>
             </nav>
             <!-- .navbar -->
-            <a class="btn-book-a-table" href="/Users/Logout"> Logout </a>
+            @{
+                if(User.Identity.IsAuthenticated)
+                {
+
+                    <a class="btn-book-a-table" href="/Users/Logout"> Logout </a>
+
+                }
+                else
+                {
+                    <a class="btn-book-a-table" href="/Users/Login"> Login </a>
+                }
+            }
+
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

@@ -1427,7 +1427,6 @@ C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Edit.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Index.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\Rate.cshtml.g.cs
-C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Rating\Index.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\DataEntryLayout.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -1440,11 +1439,6 @@ C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\Edit.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\Index.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\Login.cshtml.g.cs
-C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Create.cshtml.g.cs
-C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Delete.cshtml.g.cs
-C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Details.cshtml.g.cs
-C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Edit.cshtml.g.cs
-C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Index.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.RazorTargetAssemblyInfo.cache
@@ -2250,3 +2244,16 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.dll
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.pdb
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\UniversityResturantInformation.genruntimeconfig.cache
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Create.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Delete.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Details.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Edit.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Index.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminLayout.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Create.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Delete.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Details.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Edit.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Index.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\vote.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\VoteResult.cshtml.g.cs

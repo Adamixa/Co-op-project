@@ -21,15 +21,9 @@ namespace UniversityResturantInformation.Controllers
         // GET: Votes
         public async Task<IActionResult> Index()
         {
-            var restaurantDB = _context.Votes.Include(v => v.List_Menu).Include(v => v.User);
-            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
-                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2)
-                .ToListAsync();
-
-            
-            return View();
+            var restaurantDB = _context.Votes.Include(v => v.Menu).Include(v => v.User);
+            return View(await restaurantDB.ToListAsync());
         }
-        
 
         // GET: Votes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -40,7 +34,7 @@ namespace UniversityResturantInformation.Controllers
             }
 
             var vote = await _context.Votes
-                .Include(v => v.List_Menu)
+                .Include(v => v.Menu)
                 .Include(v => v.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vote == null)
@@ -54,7 +48,7 @@ namespace UniversityResturantInformation.Controllers
         // GET: Votes/Create
         public IActionResult Create()
         {
-            ViewData["List_MenuId"] = new SelectList(_context.List_Menus, "Id", "Id");
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -64,7 +58,7 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,List_MenuId,Date,IsFinished")] Vote vote)
+        public async Task<IActionResult> Create([Bind("Id,UserId,MenuId,Date,IsFinished")] Vote vote)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +66,7 @@ namespace UniversityResturantInformation.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["List_MenuId"] = new SelectList(_context.List_Menus, "Id", "Id", vote.List_MenuId);
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", vote.MenuId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vote.UserId);
             return View(vote);
         }
@@ -90,7 +84,7 @@ namespace UniversityResturantInformation.Controllers
             {
                 return NotFound();
             }
-            ViewData["List_MenuId"] = new SelectList(_context.List_Menus, "Id", "Id", vote.List_MenuId);
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", vote.MenuId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vote.UserId);
             return View(vote);
         }
@@ -100,7 +94,7 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,List_MenuId,Date,IsFinished")] Vote vote)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,MenuId,Date,IsFinished")] Vote vote)
         {
             if (id != vote.Id)
             {
@@ -127,7 +121,7 @@ namespace UniversityResturantInformation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["List_MenuId"] = new SelectList(_context.List_Menus, "Id", "Id", vote.List_MenuId);
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", vote.MenuId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vote.UserId);
             return View(vote);
         }
@@ -141,7 +135,7 @@ namespace UniversityResturantInformation.Controllers
             }
 
             var vote = await _context.Votes
-                .Include(v => v.List_Menu)
+                .Include(v => v.Menu)
                 .Include(v => v.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vote == null)
@@ -166,6 +160,43 @@ namespace UniversityResturantInformation.Controllers
         private bool VoteExists(int id)
         {
             return _context.Votes.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> vote()
+        {
+
+            ViewBag.BreakfastMenus = await _context.Menus
+                .Where(mx => mx.IsVoteable == true && mx.Meal == 1)
+                .ToListAsync();
+
+            ViewBag.LunchMenus = await _context.Menus
+                .Where(mx => mx.IsVoteable == true && mx.Meal == 2)
+                .ToListAsync();
+
+            ViewBag.DinnerMenus = await _context.Menus
+                .Where(mx => mx.IsVoteable == true && mx.Meal == 3)
+                .ToListAsync();
+
+
+
+            ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+                           .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1)
+                           .ToListAsync();
+
+            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 2)
+                .ToListAsync();
+
+            ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 3)
+                .ToListAsync();
+
+
+             return View();
+        }
+
+        public async Task<IActionResult> VoteResult()
+        {
+            return View();
         }
     }
 }

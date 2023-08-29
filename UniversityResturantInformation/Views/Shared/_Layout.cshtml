@@ -49,15 +49,122 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#contact">Contact</a></li>
+
+                    <li class="dropdown d-none d-xl-block">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            Items
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+
+
+                            <!-- item-->
+                            <a asp-controller="Items" asp-action="Create" class="dropdown-item">
+                                <i class="fe-bar-chart-line- me-1"></i>
+                                <span>Add Item </span>
+                            </a>
+
+                            <!-- item-->
+                            <a asp-controller="Items" asp-action="Index" class="dropdown-item">
+                                <i class="fe-settings me-1"></i>
+                                <span>View Items </span>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                    <li class="dropdown d-none d-xl-block">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            Menus
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+
+                            <!-- item-->
+                            <a asp-controller="Menus" asp-action="Create" class="dropdown-item">
+                                <i class="fe-bar-chart-line- me-1"></i>
+                                <span>Create Menu</span>
+                            </a>
+
+                            <!-- item-->
+                            <a asp-controller="Menus" asp-action="Index" class="dropdown-item">
+                                <i class="fe-settings me-1"></i>
+                                <span>View Menus </span>
+                            </a>
+
+                            <!-- item-->
+                            <a asp-controller="Items" asp-action="MenuItem" class="dropdown-item">
+                                <i class="fe-bar-chart-line- me-1"></i>
+                                <span>Add items to menu</span>
+                            </a>
+
+                            <!-- item-->
+                            <a asp-controller="Items" asp-action="MIIndex" class="dropdown-item">
+                                <i class="fe-settings me-1"></i>
+                                <span>View Menu Items</span>
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <li class="dropdown d-none d-xl-block">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            Users
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+
+
+                            <!-- item-->
+                            <a asp-controller="Users" asp-action="Create" class="dropdown-item">
+                                <i class="fe-bar-chart-line- me-1"></i>
+                                <span>Create User</span>
+                            </a>
+
+                            <!-- item-->
+                            <a asp-controller="Users" asp-action="Index" class="dropdown-item">
+                                <i class="fe-settings me-1"></i>
+                                <span>View Users </span>
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <li class="dropdown d-none d-xl-block">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            Complaints
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+
+
+                            <!-- item-->
+                            <a asp-controller="Compliants" asp-action="Index" class="dropdown-item">
+                                <i class="fe-settings me-1"></i>
+                                <span>View Complaints </span>
+                            </a>
+
+                        </div>
+                    </li>
+
+
+
                 </ul>
             </nav>
             <!-- .navbar -->
-            <a class="btn-book-a-table" href="/Users/Logout"> Logout </a>
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+
+                    <a class="btn-book-a-table" href="/Users/Logout"> Logout </a>
+
+                }
+                else
+                {
+                    <a class="btn-book-a-table" href="/Users/Login"> Login </a>
+                }
+            }            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
         </div>

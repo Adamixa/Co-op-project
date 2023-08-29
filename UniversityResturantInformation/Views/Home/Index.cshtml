@@ -180,7 +180,10 @@
         </div>
       </section>
       <!-- End Gallery Section --> 
-      @{ if (User.FindFirst(ClaimTypes.Role).Value == "Student") {
+
+      @{ 
+          if(User.Identity.IsAuthenticated){
+          if (User.FindFirst(ClaimTypes.Role).Value == "Student") {
       <!-- ======= Contact Section ======= -->
       <section id="contact" class="contact">
         <div class="container" data-aos="fade-up">
@@ -241,10 +244,10 @@
                                 <input type="text" class="form-control" name="Title" id="Title" placeholder="Title">
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Description</label>
-                                <input class="form-control" name="Description" rows="5" placeholder="Description">
-                            </div>
+                                <div class="form-outline">
+                                    <label class="form-label" for="textAreaExample">Description</label>
+                                    <textarea class="form-control" rows="4" name="Description" id="textAreaExample1" ></textarea>
+                                </div>
 
                             <div class="form-group">
                                 <label class="control-label">Category</label>
@@ -260,7 +263,7 @@
           <!--End Contact Form -->
         </div>
       </section>
-      <!-- End Contact Section --> } }
+      <!-- End Contact Section --> } }}
   </main>
   <!-- End #main -->
   <!-- ======= Footer ======= -->
