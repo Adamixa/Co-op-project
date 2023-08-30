@@ -41,8 +41,11 @@
                                             <p class="text-dark mt-3 mb-3 fs-8">@item.Item.ItemName</p>
                                         }
                                     }
+                                    @if (ViewBag.BreakfastSubmit == 0)
+                                    {
+                                        <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
+                                    }
                                     
-                                    <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
                                 </form>
                             </div>
                         </div>
@@ -79,8 +82,11 @@
                                             <p class="text-dark mt-3 mb-3 fs-8">@item.Item.ItemName</p>
                                         }
                                     }
-
-                                    <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
+                                    @if (ViewBag.LunchSubmit == 0)
+                                    {
+                                        <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
+                                    }
+                                    
                                 </form>
                             </div>
                         </div>
@@ -118,8 +124,10 @@
                                         }
                                     }
 
-                                 
-                                    <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
+                                    @if (ViewBag.DinnerSubmit == 0)
+                                    {
+                                        <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
+                                    }
                                 </form>
 
                             </div>

@@ -24,6 +24,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Users
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var restaurantDB = _context.Users.Include(u => u.Role);
@@ -31,6 +32,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Users/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,6 +52,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Users/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName");
@@ -61,6 +64,7 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
         {
             if (ModelState.IsValid)
@@ -74,6 +78,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +100,7 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
         {
             if (id != user.Id)
@@ -126,6 +132,7 @@ namespace UniversityResturantInformation.Controllers
             return View(user);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -146,6 +153,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // POST: Users/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

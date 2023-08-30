@@ -196,11 +196,14 @@ namespace UniversityResturantInformation.Controllers
                 .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 3)
                 .ToListAsync();
 
-            ViewBag.BreakfastSubmit = await _context.Votes.Include(d => d.Menu)
-                .Include(d => d.User).Where(mx => mx.Menu.Meal == 1 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId)
-                .ToListAsync();
+            ViewBag.BreakfastSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 1 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
 
+            ViewBag.LunchSubmit =  _context.Votes.Where(mx => mx.Menu.Meal == 2 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
 
+            ViewBag.DinnerSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 3 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+              
+
+           
             return View();
 
         }
