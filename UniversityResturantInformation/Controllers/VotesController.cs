@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -161,6 +163,10 @@ namespace UniversityResturantInformation.Controllers
         {
             return _context.Votes.Any(e => e.Id == id);
         }
+      
+        [Authorize(Roles = "Student")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> vote()
         {
 
@@ -179,7 +185,7 @@ namespace UniversityResturantInformation.Controllers
 
 
             ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
-                           .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1)
+                           .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 1)
                            .ToListAsync();
 
             ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
@@ -190,8 +196,27 @@ namespace UniversityResturantInformation.Controllers
                 .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 3)
                 .ToListAsync();
 
+            ViewBag.BreakfastSubmit = await _context.Votes.Include(d => d.Menu)
+                .Include(d => d.User).Where(mx => mx.Menu.Meal == 1 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId)
+                .ToListAsync();
 
-             return View();
+
+            return View();
+
+        }
+        [Authorize(Roles = "Student")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> vote(int menuM)
+        {
+            Vote vote = new Vote();
+            vote.MenuId = menuM;
+            vote.Date = DateTime.Now;
+            vote.IsFinished = false;
+            vote.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _context.Votes.Add(vote);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> VoteResult()
