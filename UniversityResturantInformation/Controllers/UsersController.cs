@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using UniversityResturantInformation.Models;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.ComponentModel.DataAnnotations;
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -67,6 +69,31 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
         {
+
+            //if (ModelState.IsValid)
+            //{
+            //    // Check if the username already exists in the database
+            //    bool isUsernameTaken = await _context.Users.AnyAsync(u => u.Username == user.Username);
+
+            //    if (isUsernameTaken)
+            //    {
+            //        ModelState.AddModelError("Username", "Username is already taken.");
+            //        return View(user);
+            //    }
+
+            //    // Username is not taken, proceed with creating the user
+            //    _context.Users.Add(user);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+
+            //// Model is not valid, return the view with validation errors
+            //return View(user);
+
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -75,6 +102,28 @@ namespace UniversityResturantInformation.Controllers
             }
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
             return View(user);
+
+
+
+            //try
+            //{
+            //    var check = _context.Users.Where(us =>us.Id == user.Id);
+            //    if (check == null)
+            //        ViewData["Successful"] = "تمت الإضافة بنجاح";
+            //    else if (check != null)
+            //    {
+            //        ViewData["Falied"] = "هذا المستخدم موجود مسبقا";
+            //        ViewData["NoRedirect"] = "No Redirect";
+            //        ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+            //    }
+            //    else
+            //        ViewData["Falied"] = "حدث خطأ أثناء معالجتك طلبك الرجاء المحاولة في وقت لاحق";
+            //}
+            //catch
+            //{
+            //    ViewData["Falied"] = "حدث خطأ أثناء معالجتك طلبك الرجاء المحاولة في وقت لاحق";
+            //}
+            //return View();
         }
 
         // GET: Users/Edit/5

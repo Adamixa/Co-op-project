@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using UniversityResturantInformation.Models;
+using System.Security.Claims;
+
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -25,25 +28,37 @@ namespace UniversityResturantInformation.Controllers
             return View(await restaurantDB.ToListAsync());
         }
 
-        
+        [Authorize(Roles = "Student")] 
         public /*async*/ IActionResult Rate()
         {
             var Item = _context.Items;
             //ViewBag.Rate = await _context.Menu_Items.Include(d => d)
             //    .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true)
             //    .ToListAsync();
-          
-
             return View(Item);
         }
+        [Authorize (Roles = "Student")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Rate(int[] RateItem , int[] Item)
+        {
+            ViewBag.RateSubmit = _context.Ratings.Where(mx => mx.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
 
+            var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            for ( var j = 0; j < Item.Length; j++)
+            {
+                Rating rating = new Rating();
+                rating.Rate = RateItem[j];
+                rating.ItemId = Item[j];
+                rating.UserId = UserId;
+                _context.Ratings.Add(rating);
+            }
 
-        //public async Task<IActionResult> RateItem()
-        //{
-        //    var item = _context.Items.Include(i => i.Id);
+            await _context.SaveChangesAsync();
+            //var item = _context.Items.Include(i => i.Id);
 
-        //    return View(item);
-        //}
+            return RedirectToAction("Index" , "Home");
+        }
 
 
 

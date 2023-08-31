@@ -35,37 +35,29 @@
                 <br>
                 <h3 class="m-b-15">Rate</h3>
                 <hr>
-                <!-- Login Form -->
-
-
-
-
-
                 <div class="container">
-                        
-                            @foreach (var item in Model)
-                            {
-                                <div>
-                                    <!-- Display properties of each Rating object -->
-                                    <p></p>
-                                    <p>Item Name: @item.ItemName</p>
-                                    <label for="input-1" class="control-label"></label>
-                                    <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" asp-action="submit"></input>
+                    <form asp-action="Rate">
+                        @foreach (var item in Model)
+                        {
+                            <div>
+                                <!-- Display properties of each Rating object -->
 
-                                    <!-- Other properties of Rating and related Item -->
-                                </div>
-                            }
-                        
-                        @* <label for="input-1" class="control-label">
-                            
-                        </label>
-                        <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1"> *@
+                                <p></p>
+                                <h4> @item.ItemName</h4>
+                                <input name="Item" type="hidden" value="@item.Id">
+                                <label for="input-1" class="control-label"></label>
+                                <input id="input-1" name="RateItem" class="rating rating-loading" data-min="0" data-max="5" data-step="1" required>
+
+                            </div>
+                        }
                         <br>
                         <br>
-                    <br>
-                    <br>
-                    <hr>
-                    <input type="submit" class="fadeIn fourth" value="Submit">
+                        <hr>
+                       @*  @if (ViewBag.RateSubmit == 0)
+                        { *@
+                            <input type="submit" class="fadeIn fourth" value="Submit">
+                        @* } *@
+                    </form>
                 </div>
 
             </div>
@@ -74,21 +66,6 @@
     <br />
     <br />
     <br />
-    <script>
-        $(document).ready(function () {
-            $('#input-3').rating({
-                displayOnly: true,
-                step: 0.5
-            });
-            $('#input-5').rating({
-                clearCaption: 'No stars yet'
-            });
-            $('#input-8').rating({
-                rtl: true,
-                containerClass: 'is-star'
-            });
-            $('#input-9').rating();
-        });
-    </script>
+
 </body>
 </html>
