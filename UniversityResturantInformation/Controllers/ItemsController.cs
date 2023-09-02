@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,14 @@ namespace UniversityResturantInformation.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin, DataEntry")]
         // GET: Items
         public async Task<IActionResult> Index()
         {
             return View(await _context.Items.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin, DataEntry")]
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,6 +47,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Items/Create
+        [Authorize(Roles = "Admin, DataEntry")]
         public IActionResult Create()
         {
 
@@ -67,6 +71,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Items/Edit/5
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,6 +123,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Items/Delete/5
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,7 +151,7 @@ namespace UniversityResturantInformation.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin, DataEntry")]
         public IActionResult MenuItem()
         {
             ViewBag.Item = _context.Items;
@@ -184,10 +190,11 @@ namespace UniversityResturantInformation.Controllers
         }
         //await _context.SaveChangesAsync();
         //        return RedirectToAction(nameof(MIIndex));
-            //}
-            //ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
-            //ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
-            //return View(MI);
+        //}
+        //ViewData["ItemId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.ItemId);
+        //ViewData["MenuId"] = new SelectList(_context.Menu_Items, "Id", "Id", MI.MenuId);
+        //return View(MI);
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> MIIndex()
         {
             return View(await _context.Menu_Items.Include(u => u.Item).ToListAsync());
@@ -197,6 +204,7 @@ namespace UniversityResturantInformation.Controllers
         {
             return _context.Items.Any(e => e.Id == id);
         }
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> MenuItemEdit(int? id)
         {
             if (id == null)
@@ -251,6 +259,7 @@ namespace UniversityResturantInformation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, DataEntry")]
         public IActionResult Vote()
         {
 

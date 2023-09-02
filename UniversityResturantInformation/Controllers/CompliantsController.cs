@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Compliants
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var restaurantDB = _context.Complaints.Include(c => c.User);
@@ -26,6 +28,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Compliants/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +48,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Compliants/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
@@ -69,6 +73,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Compliants/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -122,6 +127,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Compliants/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +156,7 @@ namespace UniversityResturantInformation.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool CompliantExists(int id)
         {

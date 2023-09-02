@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,14 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Menus
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Menus.ToListAsync());
         }
 
         // GET: Menus/Details/5
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,6 +46,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Menus/Create
+        [Authorize(Roles = "Admin, DataEntry")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +69,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Menus/Edit/5
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,IsActive,Meal")] Menu menu)
         {
             if (id != menu.Id)
@@ -116,6 +122,7 @@ namespace UniversityResturantInformation.Controllers
         }
 
         // GET: Menus/Delete/5
+        [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
