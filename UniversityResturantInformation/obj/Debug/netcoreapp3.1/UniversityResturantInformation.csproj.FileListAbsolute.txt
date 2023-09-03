@@ -2301,3 +2301,5 @@ C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj
 C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\DataEntry.cshtml.g.cs
 C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Vote.cshtml.g.cs
 C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\VoteResult.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\RatingResult.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll

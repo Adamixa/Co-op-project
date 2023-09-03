@@ -58,7 +58,14 @@ namespace UniversityResturantInformation.Controllers
             return RedirectToAction("Index" , "Home");
         }
 
+        public async Task<IActionResult> RatingResult()
+        {
 
+            var result = _context.Ratings
+                .Include(i =>i.Item)
+                .Include(u =>u.User);
+            return View(result);
+        }
 
 
 

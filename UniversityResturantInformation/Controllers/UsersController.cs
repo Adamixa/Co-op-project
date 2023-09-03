@@ -13,7 +13,7 @@ using UniversityResturantInformation.Models;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.ComponentModel.DataAnnotations;
-
+using BCrypt.Net;
 namespace UniversityResturantInformation.Controllers
 {
     public class UsersController : Controller
@@ -70,60 +70,28 @@ namespace UniversityResturantInformation.Controllers
         public async Task<IActionResult> Create([Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
         {
 
-            //if (ModelState.IsValid)
-            //{
-            //    // Check if the username already exists in the database
-            //    bool isUsernameTaken = await _context.Users.AnyAsync(u => u.Username == user.Username);
-
-            //    if (isUsernameTaken)
-            //    {
-            //        ModelState.AddModelError("Username", "Username is already taken.");
-            //        return View(user);
-            //    }
-
-            //    // Username is not taken, proceed with creating the user
-            //    _context.Users.Add(user);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-
-            //// Model is not valid, return the view with validation errors
-            //return View(user);
-
-
-
-
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var checkUser = _context.Users.SingleOrDefault(u => u.Username == user.Username);
+
+                if (checkUser != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Username already exists.");
+
+                }
+                else
+                {
+                    string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    user.Password = hashpass;
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
+                return View(user);
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
             return View(user);
-
-
-
-            //try
-            //{
-            //    var check = _context.Users.Where(us =>us.Id == user.Id);
-            //    if (check == null)
-            //        ViewData["Successful"] = "تمت الإضافة بنجاح";
-            //    else if (check != null)
-            //    {
-            //        ViewData["Falied"] = "هذا المستخدم موجود مسبقا";
-            //        ViewData["NoRedirect"] = "No Redirect";
-            //        ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
-            //    }
-            //    else
-            //        ViewData["Falied"] = "حدث خطأ أثناء معالجتك طلبك الرجاء المحاولة في وقت لاحق";
-            //}
-            //catch
-            //{
-            //    ViewData["Falied"] = "حدث خطأ أثناء معالجتك طلبك الرجاء المحاولة في وقت لاحق";
-            //}
-            //return View();
         }
 
         // GET: Users/Edit/5
@@ -248,7 +216,11 @@ namespace UniversityResturantInformation.Controllers
         {
             try
             {
-                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && u.Password == password).SingleOrDefault();
+                var pass = _context.Users.Where(u => u.Username == username).SingleOrDefault();
+                bool isValidPassword = BCrypt.Net.BCrypt.Verify(password, pass.Password);
+
+                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && (isValidPassword == true || u.Password==password)).SingleOrDefault();
+
                 if (check != null)
                 {
                     var identity = new ClaimsIdentity(new[]
@@ -266,7 +238,9 @@ namespace UniversityResturantInformation.Controllers
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         principal);
-                    if(check.Role.RoleName == "Admin")
+
+
+                    if (check.Role.RoleName == "Admin")
                     {
                         return RedirectToAction("Admin", "Users");
                     }
@@ -280,9 +254,9 @@ namespace UniversityResturantInformation.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    
 
                 }
+
                 // else if (checkS != null)
                 //{
                 //    var identity = new ClaimsIdentity(new[]
