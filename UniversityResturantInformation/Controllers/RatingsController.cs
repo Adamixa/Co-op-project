@@ -38,24 +38,23 @@ namespace UniversityResturantInformation.Controllers
         [Authorize (Roles = "Student")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Rate(int[] RateItem , int[] Item)
+        public async Task<IActionResult> Rate(int RateItem , int Item)
         {
             ViewBag.RateSubmit = _context.Ratings.Where(mx => mx.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
 
             var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            for ( var j = 0; j < Item.Length; j++)
-            {
+           
                 Rating rating = new Rating();
-                rating.Rate = RateItem[j];
-                rating.ItemId = Item[j];
+                rating.Rate = RateItem;
+                rating.ItemId = Item;
                 rating.UserId = UserId;
                 _context.Ratings.Add(rating);
-            }
+            
 
             await _context.SaveChangesAsync();
             //var item = _context.Items.Include(i => i.Id);
 
-            return RedirectToAction("Index" , "Home");
+            return RedirectToAction("Rate" , "Ratings");
         }
 
         public async Task<IActionResult> RatingResult()

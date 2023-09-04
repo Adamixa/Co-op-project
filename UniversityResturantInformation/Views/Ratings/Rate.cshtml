@@ -30,37 +30,35 @@
 <body>
     <section class="section-100">
         <div class="wrapper fadeInDown">
-            <div id="formContent">
-                <!-- Tabs Titles -->
-                <br>
-                <h3 class="m-b-15">Rate</h3>
-                <hr>
-                <div class="container">
+
+            @foreach (var item in Model)
+            {
+                <div id="formContent">
+                    <!-- Tabs Titles -->
+                    <br>
+                    <h3 class="m-b-15">@item.ItemName</h3>
+                    <hr>
                     <form asp-action="Rate">
-                        @foreach (var item in Model)
-                        {
-                            <div>
-                                <!-- Display properties of each Rating object -->
+                        <div>
+                            <!-- Display properties of each Rating object -->
+                            <input name="Item" type="hidden" value="@item.Id">
+                            <label for="input-1" class="control-label"></label>
+                            <input id="input-1" name="RateItem" class="rating rating-loading" data-min="0" data-max="5" data-step="1" required>
+                            @if (ViewBag.RateSubmit == 0)
+                            {
+                                <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
+                            }
 
-                                <p></p>
-                                <h4> @item.ItemName</h4>
-                                <input name="Item" type="hidden" value="@item.Id">
-                                <label for="input-1" class="control-label"></label>
-                                <input id="input-1" name="RateItem" class="rating rating-loading" data-min="0" data-max="5" data-step="1" required>
-
-                            </div>
-                        }
-                        <br>
-                        <br>
-                        <hr>
-                       @*  @if (ViewBag.RateSubmit == 0)
-                        { *@
-                            <input type="submit" class="fadeIn fourth" value="Submit">
-                        @* } *@
+                        </div>
                     </form>
                 </div>
+                <br />
+            }
+            <br>
+            <br>
+            <hr>
 
-            </div>
+
         </div>
     </section>
     <br />

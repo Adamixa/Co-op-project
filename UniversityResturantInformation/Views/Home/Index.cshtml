@@ -19,9 +19,9 @@
                     {
                         if (User.FindFirst(ClaimTypes.Role).Value == "Student")
                         {
-                            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                                <a href="https://localhost:44365/votes/vote" class="btn-book-a-table">Vote on Menu</a>
-                            </div>
+                                        <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                                            <a href="https://localhost:44365/votes/vote" class="btn-book-a-table">Vote on Menu</a>
+                                        </div>
                         }
                     }
                 }
@@ -112,13 +112,13 @@
                         @{
                             foreach (Menu_Item menu in ViewBag.Breakfast)
                             {
-                                <div class="col-lg-4 menu-item">
-                                    <a href="~/img/menu/menu-item-1.png" class="glightbox">
-                                        <img src="~/img/menu/menu-item-1.png" class="menu-img img-fluid" alt="">
-                                    </a>
-                                    <h4>@menu.Item.ItemName</h4>
-                                    <p class="price"> $12.95 </p>
-                                </div>
+                                            <div class="col-lg-4 menu-item">
+                                                <a href="~/img/menu/menu-item-1.png" class="glightbox">
+                                                    <img src="~/img/menu/menu-item-1.png" class="menu-img img-fluid" alt="">
+                                                </a>
+                                                <h4>@menu.Item.ItemName</h4>
+                                                <p class="price"> $12.95 </p>
+                                            </div>
                             }
                         }
                     </div>
@@ -133,13 +133,13 @@
                         @{
                             foreach (Menu_Item menu in ViewBag.Lunch)
                             {
-                                <div class="col-lg-4 menu-item">
-                                    <a href="~/img/menu/menu-item-2.png" class="glightbox">
-                                        <img src="~/img/menu/menu-item-2.png" class="menu-img img-fluid" alt="">
-                                    </a>
-                                    <h4>@menu.Item.ItemName</h4>
-                                    <p class="price"> $12.95 </p>
-                                </div>
+                                            <div class="col-lg-4 menu-item">
+                                                <a href="~/img/menu/menu-item-2.png" class="glightbox">
+                                                    <img src="~/img/menu/menu-item-2.png" class="menu-img img-fluid" alt="">
+                                                </a>
+                                                <h4>@menu.Item.ItemName</h4>
+                                                <p class="price"> $12.95 </p>
+                                            </div>
                             }
                         }
                     </div>
@@ -154,13 +154,13 @@
                         @{
                             foreach (Menu_Item menu in ViewBag.Dinner)
                             {
-                                <div class="col-lg-4 menu-item">
-                                    <a href="~/img/menu/menu-item-3.png" class="glightbox">
-                                        <img src="~/img/menu/menu-item-3.png" class="menu-img img-fluid" alt="">
-                                    </a>
-                                    <h4>@menu.Item.ItemName</h4>
-                                    <p class="price"> $12.95 </p>
-                                </div>
+                                            <div class="col-lg-4 menu-item">
+                                                <a href="~/img/menu/menu-item-3.png" class="glightbox">
+                                                    <img src="~/img/menu/menu-item-3.png" class="menu-img img-fluid" alt="">
+                                                </a>
+                                                <h4>@menu.Item.ItemName</h4>
+                                                <p class="price"> $12.95 </p>
+                                            </div>
                             }
                         }
                         <!-- Menu Item -->
@@ -219,91 +219,104 @@
         {
             if (User.FindFirst(ClaimTypes.Role).Value == "Student")
             {
-                <!-- ======= Contact Section ======= -->
-                <section id="contact" class="contact">
-                    <div class="container" data-aos="fade-up">
-                        <div class="section-header">
-                            <h2>Contact</h2>
-                            <p>
-                                Need Help? <span>Contact Us</span>
-                            </p>
-                        </div>
-                        <div class="row gy-4">
-                            <div class="col-md-6">
-                                <div class="info-item  d-flex align-items-center">
-                                    <i class="icon bi bi-map flex-shrink-0"></i>
-                                    <div>
-                                        <h3>Our Address</h3>
+                            <!-- ======= Contact Section ======= -->
+                            <section id="contact" class="contact">
+                                <div class="container" data-aos="fade-up">
+                                    <div class="section-header">
+                                        <h2>Contact</h2>
                                         <p>
-                                            KFU University <br> Saudi Arabia , AlHasa - SA <br>
+                                            Need Help? <span>Contact Us</span>
                                         </p>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- End Info Item -->
-                            <div class="col-md-6">
-                                <div class="info-item d-flex align-items-center">
-                                    <i class="icon bi bi-envelope flex-shrink-0"></i>
-                                    <div>
-                                        <h3>Email Us</h3>
-                                        <p>contact@example.com</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Info Item -->
-                            <div class="col-md-6">
-                                <div class="info-item  d-flex align-items-center">
-                                    <i class="icon bi bi-telephone flex-shrink-0"></i>
-                                    <div>
-                                        <h3>Call Us</h3>
-                                        <p>+1 5589 55488 55</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Info Item -->
-                            <div class="col-md-6">
-                                <div class="info-item  d-flex align-items-center">
-                                    <i class="icon bi bi-share flex-shrink-0"></i>
-                                    <div>
-                                        <h3>Opening Hours</h3>
-                                        <div>
-                                            <strong>Sat-Thursday: </strong>Breakfast: 6 - 8 AM<br>Lunch: 11 AM - 2 PM<br>Dinner: 6 - 8 PM; <strong><br>Friday:</strong> Closed
+                                    <div class="row gy-4">
+                                        <div class="col-md-6">
+                                            <div class="info-item  d-flex align-items-center">
+                                                <i class="icon bi bi-map flex-shrink-0"></i>
+                                                <div>
+                                                    <h3>Our Address</h3>
+                                                    <p>
+                                                        KFU University <br> Saudi Arabia , AlHasa - SA <br>
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <!-- End Info Item -->
+                                        <div class="col-md-6">
+                                            <div class="info-item d-flex align-items-center">
+                                                <i class="icon bi bi-envelope flex-shrink-0"></i>
+                                                <div>
+                                                    <h3>Email Us</h3>
+                                                    <p>contact@example.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Info Item -->
+                                        <div class="col-md-6">
+                                            <div class="info-item  d-flex align-items-center">
+                                                <i class="icon bi bi-telephone flex-shrink-0"></i>
+                                                <div>
+                                                    <h3>Call Us</h3>
+                                                    <p>+1 5589 55488 55</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Info Item -->
+                                        <div class="col-md-6">
+                                            <div class="info-item  d-flex align-items-center">
+                                                <i class="icon bi bi-share flex-shrink-0"></i>
+                                                <div>
+                                                    <h3>Opening Hours</h3>
+                                                    <div>
+                                                        <strong>Sat-Thursday: </strong>Breakfast: 6 - 8 AM<br>Lunch: 11 AM - 2 PM<br>Dinner: 6 - 8 PM; <strong><br>Friday:</strong> Closed
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Info Item -->
                                     </div>
-                                </div>
-                            </div>
-                            <!-- End Info Item -->
-                        </div>
-                        <form asp-action="Complaint" class="p-3 p-md-4">
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="control-label">Title</label>
-                                    <input type="text" class="form-control" name="Title" id="Title" placeholder="Title">
-                                </div>
+                        <script>
+                            function sendform() {
+                                swal.fire('Seccessful', 'Your Complaimt has been sent seccessfully', 'success')
+                                    .then(result => {
+                                        if (result.isconfirmed) {
+                                            const myform = document.getElementById('myform');
+                                            myform.submit();
+                                        }
+                                    });
+                            }
+                        </script>
+                        <form asp-action="Complaint" id="myform" onsubmit="sendform(event)" method="post" class="p-3 p-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label">Title</label>
+                                                <input type="text" class="form-control" name="Title" id="Title" placeholder="Title">
+                                            </div>
 
-                                <div class="form-outline">
-                                    <label class="form-label" for="textAreaExample">Description</label>
-                                    <textarea class="form-control" rows="4" name="Description" id="textAreaExample1"></textarea>
-                                </div>
+                                            <div class="form-outline">
+                                                <label class="form-label" for="textAreaExample">Description</label>
+                                                <textarea class="form-control" rows="4" name="Description" id="textAreaExample1"></textarea>
+                                            </div>
 
-                                <div class="form-group">
-                                    <label class="control-label">Category</label>
-                                    <select class="form-control" name="Category" id="Category">
-                                        <option value="1">1</option>
-                                        <option value="2">two</option>
-                                    </select>
+                                            <div class="form-group">
+                                                <label class="control-label">Category</label>
+                                                <select class="form-control" name="Category" id="Category">
+                                                    <option value="1">1</option>
+                                                    <option value="2">two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    <input type="submit" value="Send Message" onclick="submit()" class="btn btn-danger">
+                                    </form>
+                                    <!--End Contact Form -->
                                 </div>
-                            </div>
-                            <br>
-                            <input type="submit" value="Send Message" class="btn btn-danger">
-                        </form>
-                        <!--End Contact Form -->
-                    </div>
-                </section>
-                <!-- End Contact Section -->
+                            </section>
+                            <!-- End Contact Section -->
             }
         }
+
     }
+
 </main>
 <!-- End #main -->
 <!-- ======= Footer ======= -->
@@ -377,3 +390,5 @@
     <i class="bi bi-arrow-up-short"></i>
 </a>
 <div id="preloader"></div>
+
+<!-- Your JavaScript code goes here -->
