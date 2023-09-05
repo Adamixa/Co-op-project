@@ -129,6 +129,8 @@ namespace UniversityResturantInformation.Controllers
             {
                 try
                 {
+                    string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    user.Password = hashpass;
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
@@ -145,7 +147,7 @@ namespace UniversityResturantInformation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -219,7 +221,7 @@ namespace UniversityResturantInformation.Controllers
                 var pass = _context.Users.Where(u => u.Username == username).SingleOrDefault();
                 bool isValidPassword = BCrypt.Net.BCrypt.Verify(password, pass.Password);
 
-                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && (isValidPassword == true || u.Password==password)).SingleOrDefault();
+                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && (isValidPassword == true )).SingleOrDefault();
 
                 if (check != null)
                 {

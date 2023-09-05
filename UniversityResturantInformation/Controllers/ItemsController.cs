@@ -157,15 +157,34 @@ namespace UniversityResturantInformation.Controllers
             ViewBag.Item = _context.Items;
             ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
+            ViewBag.meal = new List<SelectListItem>{ 
+            new SelectListItem{
+                Text="Breakfast",
+                Value = "1"
+            },
+            new SelectListItem{
+                Text="Lunch",
+                Value = "1"
+            },
+            new SelectListItem{
+                Text="Dinner",
+                Value = "2"
+            } };
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MenuItem(string tableInfo, int MenuId)
+        public async Task<IActionResult> MenuItem(string tableInfo, int meal)
         {
             //if (ModelState.IsValid)
-            //{
+
+            Menu menue = new Menu();
+            menue.IsActive = false;
+            menue.IsVoteable = true;
+            menue.Meal = meal;
+            _context.Add(menue);
+            _context.SaveChanges();
             var itemInfo = JsonConvert.DeserializeObject<List<MenuItemViewModel>>(tableInfo);
             try
             {
@@ -176,7 +195,7 @@ namespace UniversityResturantInformation.Controllers
                 {
                     Menu_Item menu_Item = new Menu_Item();
                     menu_Item.ItemId = item.ItemId;
-                    menu_Item.MenuId = MenuId;
+                    menu_Item.MenuId = menue.Id;
                     _context.Add(menu_Item);
                     _context.SaveChanges();
                 }
