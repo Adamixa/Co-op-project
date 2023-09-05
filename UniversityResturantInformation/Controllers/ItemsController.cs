@@ -63,9 +63,26 @@ namespace UniversityResturantInformation.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(item);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var checkItemCode = _context.Items.SingleOrDefault(u => u.ItemCode == item.ItemCode);
+                var checkItemName = _context.Items.SingleOrDefault(u => u.ItemName == item.ItemName);
+
+                if (checkItemCode != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Item Code already exists.");
+
+                }
+                else if(checkItemName != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Item Name already exists.");
+                }
+                else
+                {
+                    _context.Add(item);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+               
             }
             return View(item);
         }
@@ -164,11 +181,11 @@ namespace UniversityResturantInformation.Controllers
             },
             new SelectListItem{
                 Text="Lunch",
-                Value = "1"
+                Value = "2"
             },
             new SelectListItem{
                 Text="Dinner",
-                Value = "2"
+                Value = "3"
             } };
             return View();
         }
@@ -216,7 +233,7 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> MIIndex()
         {
-            return View(await _context.Menu_Items.Include(u => u.Item).ToListAsync());
+            return View(await _context.Menu_Items.Include(u => u.Item).Include(u => u.Menu).ToListAsync());
 
         }
         private bool ItemExists(int id)

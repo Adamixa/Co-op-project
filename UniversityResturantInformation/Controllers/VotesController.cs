@@ -222,6 +222,7 @@ namespace UniversityResturantInformation.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> VoteResult()
         {
             return View();

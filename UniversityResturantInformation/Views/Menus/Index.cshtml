@@ -18,7 +18,55 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+<div class="table-responsive">
+    <table id="myTable" class="table table-striped table-sm border">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Meal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsVoteable)
+                </th>
+                
+                <th>Settings</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Meal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsVoteable)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<@* table class="table">
     <thead>
         <tr>
             <th>
@@ -44,24 +92,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Meal)
-                    @*@if(item.Meal == 1)
-                    {
-                        Html.DisplayName("Breakfast");
-                    }else if(item.Meal == 2)
-                    {
-                        Html.DisplayName("Lunch");
-                    }
-                    else
-                    {
-                        Html.DisplayName("Dinner");
-                    }*@
-                </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                    
     </tbody>
-</table>
+</table> *
+ *@
