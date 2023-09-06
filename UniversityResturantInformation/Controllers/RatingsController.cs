@@ -41,36 +41,32 @@ namespace UniversityResturantInformation.Controllers
         public async Task<IActionResult> Rate(int RateItem , int Item)
         {
             //ViewBag.RateSubmit = _context.Ratings.Where(mx => mx.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
+            try
+            {
+                var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-           
                 Rating rating = new Rating();
                 rating.Rate = RateItem;
                 rating.ItemId = Item;
                 rating.UserId = UserId;
                 _context.Ratings.Add(rating);
-            
 
-            await _context.SaveChangesAsync();
-            var userRating = await _context.Ratings
-                .FirstOrDefaultAsync(r => r.UserId == UserId && r.ItemId == Item);
-            //var item = _context.Items.Include(i => i.Id);
-            if (userRating != null)
-            {
-                // Rating submitted successfully
-                TempData["SuccessMessage"] = "Rating submitted successfully!";
-                ViewData["ShowSuccessAlert"] = true;
-            }
-            else
-            {
-                // Rating submission failed
-                TempData["RatingSubmitted"] = false;
-            }
+                ViewData["Successful"] = "Rating submitted successfully!";
+                await _context.SaveChangesAsync();
+           
+                //ViewBag.ItemSubmit = _context.Ratings.Where(us => us.UserId == UserId && Item == userRating.ItemId).Count();
 
+                var Item1 = _context.Items;
+                return View(Item1);
+            }
+            catch
+            {
+                ViewData["Falied"] = "Falied";
+                var Item1 = _context.Items;
+                return View(Item1);
+            }
 
             // Use SweetAlert to display the success message
-
-            return View();
         }
 
         public async Task<IActionResult> RatingResult()

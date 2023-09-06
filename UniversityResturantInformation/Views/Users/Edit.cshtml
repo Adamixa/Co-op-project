@@ -16,7 +16,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <input readonly asp-for="Username" class="form-control" value="@Model.Username" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input readonly asp-for="Name" class="form-control" value="@Model.Name" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,13 +34,13 @@
                 <input asp-for="Mobile" class="form-control" />
                 <span asp-validation-for="Mobile" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="Password" value="@Model.Password" class="form-control" />
+        @*     <div class="form-group">
+                <input  asp-for="Password" value="" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input readonly asp-for="Email" class="form-control" value="@Model.Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">

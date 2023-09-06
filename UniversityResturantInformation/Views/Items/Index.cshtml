@@ -57,3 +57,53 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#myTable').DataTable();
+        $('#CrnSearch').on('change', function () {
+            table.search(this.value).draw();
+        });
+
+        //var newarray1 = [];
+        $('#myTable tbody').on('click', 'tr', function () {
+            var str = "";
+            newarray = [];
+            //newarray1 = [];
+            $(this).toggleClass('selected');
+            var data = table.rows('.selected').data();
+            for (var i = 0; i < data.length; i++) {
+                //alert("SectionName: " + data[i][0] + " SectionCrn: " + data[i][1] + " courseName: " + data[i][2]
+                //    + " LectureNumber: " + data[i][3] + " LectureDate: " + data[i][4] + " LectureTime: " + data[i][5]);
+                newarray.push(JSON.parse('{ "ItemId": "' + data[i][0] + '", "ItemName":"' + data[i][1] + '"}'));
+                str = str + `<div class="col-md-3">
+                                <div class="block text-center">
+                                    <div class="block-header remove-padding" style="border-bottom: 1px solid #e8e8e8;background-color:#0d6f77;">
+                                        <h3 class="block-title remove-margin" style="color: white;">${data[i][1]}</h3>
+                                    </div>
+                                    <div class="block-content remove-padding" style="background-color:#bf8f2a;">
+                                        <span style="color:Black;">${data[i][1]}</span>
+                                    </div>
+                                </div>
+                            </div>`
+            }
+            if (data.length != 0) {
+                var sData = JSON.stringify(newarray);
+                document.getElementById("tableInfoId").value = sData;
+                $("#SelectedValues").html(str);
+                //var sData1 = JSON.stringify(newarray1);
+                //document.getElementById("tableInfoId1").value = sData1;
+            }
+            else {
+                document.getElementById("tableInfoId").value = '';
+                $("#SelectedValues").html('');
+                //document.getElementById("tableInfoId1").value = '';
+            }
+        });
+
+        $('#button').on('click', function () {
+            //alert(table.rows('.selected').data().length + ' row(s) selected');
+            //alert(sData);
+        });
+    });
+</script>
