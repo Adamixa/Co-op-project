@@ -30,24 +30,44 @@
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.js"></script>
 </head>
+<script>
+    @{
+        if (@ViewData["Successful"] != null)
+        {
+            <Text>
+                                            var result = '@Html.Raw(ViewData["Successful"])';
+            Swal.fire(result, '', 'success')
+                .then(
+                    function () {
+                        window.location.href = '@Url.Action("Rate","Ratings")';
+                    }
+                );
+            </Text>
+        }
+        else if (@ViewData["Falied"] != null && ViewData["NoRedirect"] == null)
+        {
+            <Text>
+                                            var result = '@Html.Raw(ViewData["Falied"])';
+            Swal.fire(result, '', 'error')
+                .then(
+                    function () {
+                        window.location.href = '@Url.Action("Rate","Ratings")';
+                    }
+                );
+            </Text>
+        }
+        else if (@ViewData["Falied"] != null && ViewData["NoRedirect"] != null)
+        {
+            <Text>
+                                            var result = '@Html.Raw(ViewData["Falied"])';
+            Swal.fire(result, '', 'error');
+            </Text>
+        }
+    }
+</script>
 <body>
     <section class="section-100">
         <div class="wrapper fadeInDown">
-
-            @{
-                if (@TempData["RatingSubmitted"] != null)
-                {
-                    <Text>
-                        var result = '@Html.Raw(TempData["SuccessMessage"])';
-                        Swal.fire('Suceessful',result,'success')
-                        .then(
-                        function () {
-                        window.location.href = '@Url.Action("Index","Home")';
-                        }
-                        );
-                    </Text>
-                }
-            }
             @foreach (var item in Model)
             {
                 <div id="formContent">
@@ -61,8 +81,10 @@
                             <input name="Item" type="hidden" value="@item.Id">
                             <label for="input-1" class="control-label"></label>
                             <input id="input-1" name="RateItem" class="rating rating-loading" data-min="0" data-max="5" data-step="1" required>
-
-                            <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Submit">
+                            
+                                <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Submit">
+                            
+                           
 
 
                         </div>

@@ -69,29 +69,36 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
         {
-
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
             if (ModelState.IsValid)
             {
                 var checkUser = _context.Users.SingleOrDefault(u => u.Username == user.Username);
-
-                if (checkUser != null)
+                try
                 {
-                    ModelState.AddModelError(string.Empty, "Username already exists.");
+                    if (checkUser != null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Username already exists.");
+                        return View(user);
 
+                    }
+                    else
+                    {
+                        string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                        user.Password = hashpass;
+                        user.Guid = Guid.NewGuid();
+                        _context.Add(user);
+                        await _context.SaveChangesAsync();
+                        ViewData["Successful"] = "Rating submitted successfully!";
+                        return View(user);
+                    }
                 }
-                else
+                catch
                 {
-                    string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
-                    user.Password = hashpass;
-                    user.Guid = Guid.NewGuid(); 
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    ViewData["Falied"] = "Falied";
+                    return View(user);
                 }
-                ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
-                return View(user);
+                
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -119,7 +126,7 @@ namespace UniversityResturantInformation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Mobile,Guid")] User user)
         {
             if (id != user.Id)
             {
@@ -130,9 +137,11 @@ namespace UniversityResturantInformation.Controllers
             {
                 try
                 {
+                    User userInfo = _context.Users.SingleOrDefault(U => U.Guid == user.Guid);
+                    userInfo.Mobile = user.Mobile;
                     string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
                     user.Password = hashpass;
-                    _context.Update(user);
+                    _context.Update(userInfo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
