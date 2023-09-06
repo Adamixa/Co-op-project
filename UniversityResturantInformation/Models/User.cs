@@ -24,5 +24,6 @@ namespace UniversityResturantInformation.Models
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
         public Guid Guid { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

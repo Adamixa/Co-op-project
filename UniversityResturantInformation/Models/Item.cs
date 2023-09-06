@@ -13,6 +13,7 @@ namespace UniversityResturantInformation.Models
         [Required(ErrorMessage = "Item Name is required")]
         public string ItemName { get; set; }
         public int Cal { get; set; }
-        
+        public bool IsDeleted { get; set; }
+
     }
 }

@@ -23,7 +23,7 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Menus.ToListAsync());
+            return View(await _context.Menus.Where(u => u.IsDeleted == false).ToListAsync());
         }
 
         // GET: Menus/Details/5
@@ -146,7 +146,7 @@ namespace UniversityResturantInformation.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var menu = await _context.Menus.FindAsync(id);
-            _context.Menus.Remove(menu);
+            menu.IsDeleted = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

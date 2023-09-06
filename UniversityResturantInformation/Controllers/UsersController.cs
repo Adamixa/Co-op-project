@@ -29,7 +29,7 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var restaurantDB = _context.Users.Include(u => u.Role);
+            var restaurantDB = _context.Users.Include(u => u.Role).Where(u => u.IsDeleted == false);
             return View(await restaurantDB.ToListAsync());
         }
 
@@ -176,10 +176,12 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid? id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(m => m.Guid == id);
+            user.IsDeleted = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -24,7 +24,7 @@ namespace UniversityResturantInformation.Controllers
         // GET: Items
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Items.ToListAsync());
+            return View(await _context.Items.Where(u => u.IsDeleted == false).ToListAsync());
         }
 
         [Authorize(Roles = "Admin, DataEntry")]
@@ -164,14 +164,14 @@ namespace UniversityResturantInformation.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var item = await _context.Items.FindAsync(id);
-            _context.Items.Remove(item);
+            item.IsDeleted = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         [Authorize(Roles = "Admin, DataEntry")]
         public IActionResult MenuItem()
         {
-            ViewBag.Item = _context.Items;
+            ViewBag.Item = _context.Items.Where(u => u.IsDeleted == false);
             ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
             ViewBag.meal = new List<SelectListItem>{ 
