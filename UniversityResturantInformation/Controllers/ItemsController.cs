@@ -164,11 +164,11 @@ namespace UniversityResturantInformation.Controllers
             },
             new SelectListItem{
                 Text="Lunch",
-                Value = "1"
+                Value = "2"
             },
             new SelectListItem{
                 Text="Dinner",
-                Value = "2"
+                Value = "3"
             } };
             return View();
         }

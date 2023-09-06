@@ -35,7 +35,7 @@ namespace UniversityResturantInformation.Controllers
 
         // GET: Users/Details/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace UniversityResturantInformation.Controllers
 
             var user = await _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Guid == id);
             if (user == null)
             {
                 return NotFound();
@@ -83,6 +83,7 @@ namespace UniversityResturantInformation.Controllers
                 {
                     string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
                     user.Password = hashpass;
+                    user.Guid = Guid.NewGuid(); 
                     _context.Add(user);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -96,14 +97,14 @@ namespace UniversityResturantInformation.Controllers
 
         // GET: Users/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.SingleOrDefaultAsync(P => P.Guid == id);
             if (user == null)
             {
                 return NotFound();
@@ -153,7 +154,7 @@ namespace UniversityResturantInformation.Controllers
 
         [Authorize(Roles = "Admin")]
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -162,7 +163,7 @@ namespace UniversityResturantInformation.Controllers
 
             var user = await _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Guid == id);
             if (user == null)
             {
                 return NotFound();

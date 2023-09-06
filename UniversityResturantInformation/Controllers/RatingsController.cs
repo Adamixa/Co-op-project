@@ -40,7 +40,7 @@ namespace UniversityResturantInformation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Rate(int RateItem , int Item)
         {
-            ViewBag.RateSubmit = _context.Ratings.Where(mx => mx.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
+            //ViewBag.RateSubmit = _context.Ratings.Where(mx => mx.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
 
             var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
            
@@ -52,18 +52,40 @@ namespace UniversityResturantInformation.Controllers
             
 
             await _context.SaveChangesAsync();
+            var userRating = await _context.Ratings
+                .FirstOrDefaultAsync(r => r.UserId == UserId && r.ItemId == Item);
             //var item = _context.Items.Include(i => i.Id);
+            if (userRating != null)
+            {
+                // Rating submitted successfully
+                TempData["SuccessMessage"] = "Rating submitted successfully!";
+                ViewData["ShowSuccessAlert"] = true;
+            }
+            else
+            {
+                // Rating submission failed
+                TempData["RatingSubmitted"] = false;
+            }
 
-            return RedirectToAction("Rate" , "Ratings");
+
+            // Use SweetAlert to display the success message
+
+            return View();
         }
 
         public async Task<IActionResult> RatingResult()
         {
+            var itemRatings = await _context.Ratings
+        .Include(r => r.Item)
+        .GroupBy(r => r.ItemId)
+        .Select(group => new
+        {
+            Item = group.First().Item,
+            AverageRating = group.Average(r => r.Rate)
+        })
+        .ToListAsync();
 
-            var result = _context.Ratings
-                .Include(i =>i.Item)
-                .Include(u =>u.User);
-            return View(result);
+            return View(itemRatings);
         }
 
 

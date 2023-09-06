@@ -26,11 +26,28 @@
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
     <!-- optionally if you need translation for your language then include locale file as mentioned below (replace LANG.js with your own locale file) -->
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.css">
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.0/dist/sweetalert2.min.js"></script>
 </head>
 <body>
     <section class="section-100">
         <div class="wrapper fadeInDown">
 
+            @{
+                if (@TempData["RatingSubmitted"] != null)
+                {
+                    <Text>
+                        var result = '@Html.Raw(TempData["SuccessMessage"])';
+                        Swal.fire('Suceessful',result,'success')
+                        .then(
+                        function () {
+                        window.location.href = '@Url.Action("Index","Home")';
+                        }
+                        );
+                    </Text>
+                }
+            }
             @foreach (var item in Model)
             {
                 <div id="formContent">
@@ -44,10 +61,9 @@
                             <input name="Item" type="hidden" value="@item.Id">
                             <label for="input-1" class="control-label"></label>
                             <input id="input-1" name="RateItem" class="rating rating-loading" data-min="0" data-max="5" data-step="1" required>
-                            @if (ViewBag.RateSubmit == 0)
-                            {
-                                <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Vote">
-                            }
+
+                            <input type="submit" class="btn btn-danger fw-bolder px-4 ms-2 fs-8" value="Submit">
+
 
                         </div>
                     </form>
