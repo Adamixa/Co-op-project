@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using UniversityResturantInformation.Models;
 using System.Security.Claims;
-
+using System.Collections.Generic;
+using UniversityResturantInformation.ViewModel;
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -29,11 +30,23 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Student")] 
         public /*async*/ IActionResult Rate()
         {
-            var Item = _context.Items;
+            var  Item = _context.Items.ToList();
+            var Item2 = _context.Items.ToList();
+            var Ratings = _context.Ratings.Where(R => R.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            foreach(var i in Item)
+            {
+                foreach(var j in Ratings)
+                {
+                    if (i.Id == j.ItemId)
+                    {
+                        Item2.Remove(i);
+                    }
+                }
+                }
             //ViewBag.Rate = await _context.Menu_Items.Include(d => d)
             //    .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true)
             //    .ToListAsync();
-            return View(Item);
+            return View(Item2);
         }
         [Authorize (Roles = "Student")]
         [HttpPost]
