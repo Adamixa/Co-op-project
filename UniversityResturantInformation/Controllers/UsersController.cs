@@ -14,6 +14,8 @@ using System.Security.Principal;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.ComponentModel.DataAnnotations;
 using BCrypt.Net;
+using System.Net.Mail;
+
 namespace UniversityResturantInformation.Controllers
 {
     public class UsersController : Controller
@@ -88,7 +90,7 @@ namespace UniversityResturantInformation.Controllers
                         user.Guid = Guid.NewGuid();
                         _context.Add(user);
                         await _context.SaveChangesAsync();
-                        ViewData["Successful"] = "Rating submitted successfully!";
+                        ViewData["Successful"] = "Adding user successfully!";
                         return View(user);
                     }
                 }
@@ -126,27 +128,30 @@ namespace UniversityResturantInformation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Mobile,Guid")] User user)
+        public async Task<IActionResult> Edit(Guid id , string Mobile)
         {
-            if (id != user.Id)
+            var check = await _context.Users.SingleOrDefaultAsync(P => P.Guid == id);
+
+            if (id != check.Guid)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                User userInfo = _context.Users.SingleOrDefault(U => U.Guid == check.Guid);
+
                 try
                 {
-                    User userInfo = _context.Users.SingleOrDefault(U => U.Guid == user.Guid);
-                    userInfo.Mobile = user.Mobile;
-                    string hashpass = BCrypt.Net.BCrypt.HashPassword(user.Password);
-                    user.Password = hashpass;
+                    userInfo.Mobile = Mobile;
                     _context.Update(userInfo);
                     await _context.SaveChangesAsync();
+                    ViewData["Successful"] = "Mobile number has been changed successfully!";
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!UserExists(check.Id))
                     {
                         return NotFound();
                     }
@@ -155,10 +160,10 @@ namespace UniversityResturantInformation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View(userInfo);
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", user.RoleId);
-            return View(user);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", check.Role.RoleName);
+            return View(check);
         }
 
         [Authorize(Roles = "Admin")]
@@ -192,7 +197,9 @@ namespace UniversityResturantInformation.Controllers
                 .FirstOrDefaultAsync(m => m.Guid == id);
             user.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewData["Successful"] = "User has been deleted successfully!";
+
+            return View(user);
         }
 
         private bool UserExists(int id)
@@ -228,17 +235,17 @@ namespace UniversityResturantInformation.Controllers
 
         public async Task<IActionResult> Login(string username, string password)
         {
+
             try
             {
                 var pass = _context.Users.Where(u => u.Username == username).SingleOrDefault();
                 bool isValidPassword = BCrypt.Net.BCrypt.Verify(password, pass.Password);
+                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && (isValidPassword == true)).SingleOrDefault();
 
-                var check = _context.Users.Include(R => R.Role).Where(u => u.Username == username && (isValidPassword == true )).SingleOrDefault();
-
-                if (check != null)
-                {
-                    var identity = new ClaimsIdentity(new[]
+                    if (check != null)
                     {
+                        var identity = new ClaimsIdentity(new[]
+                        {
                     new Claim(ClaimTypes.Name, check.Username),
                     new Claim(ClaimTypes.Role, check.Role.RoleName),
                     new Claim(ClaimTypes.NameIdentifier, check.Id.ToString()),
@@ -247,63 +254,42 @@ namespace UniversityResturantInformation.Controllers
 
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var principal = new ClaimsPrincipal(identity);
+                        var principal = new ClaimsPrincipal(identity);
 
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        principal);
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            principal);
 
 
-                    if (check.Role.RoleName == "Admin")
-                    {
-                        return RedirectToAction("Admin", "Users");
-                    }
+                        if (check.Role.RoleName == "Admin")
+                        {
 
-                    else if (check.Role.RoleName == "DataEntry")
-                    {
-                        return RedirectToAction("DataEntry", "Users");
+                            return RedirectToAction("Admin", "Users");
+                        }
+
+                        else if (check.Role.RoleName == "DataEntry")
+                        {
+                            return RedirectToAction("DataEntry", "Users");
+                        }
+
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
                     }
 
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        ViewData["Login_error"] = "ERORR: Username or password is not correct";
+                        return View();
                     }
-
-                }
-
-                // else if (checkS != null)
-                //{
-                //    var identity = new ClaimsIdentity(new[]
-                //    {
-                //    new Claim(ClaimTypes.Name, checkS.Username),
-                //    new Claim(ClaimTypes.Role, checkS.Role.RoleName),
-                //    new Claim(ClaimTypes.NameIdentifier, checkS.Id.ToString()),
-                //    new Claim(ClaimTypes.GivenName, checkS.Name)
-
-                //}, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                //    var principal = new ClaimsPrincipal(identity);
-
-                //    await HttpContext.SignInAsync(
-                //        CookieAuthenticationDefaults.AuthenticationScheme,
-                //        principal);
-
-                //    return RedirectToAction("Index", "Home");
-
-                //}
-
-                else
-                {
-                    ViewData["Login_error"] = "ERORR: Username or password is not correct";
-                    return View();
-                }
             }
             catch
             {
                 ViewData["Login_error"] = "ERORR: Username or password is not correct";
                 return View();
             }
-
         }
 
 
@@ -314,17 +300,137 @@ namespace UniversityResturantInformation.Controllers
             return RedirectToAction("Index" , "Home");
         }
 
-        
+
 
         #endregion Login/Logout
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgetPassword()
+        {
+            try
+            {
+                string UserName = User.FindFirst(ClaimTypes.Name).Value;
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View();
+            }
+
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ForgetPassword(string Email)
+        {
+
+            var emailCheck = _context.Users.Where(s => s.Email == Email).FirstOrDefault();
+            // Get the email address to send the message to
+            if (emailCheck == null)
+            {
+                ViewBag.email = "This email does not exist";
+                return View();
+            }
+            else
+            {
+                try
+                {
+                    //// Get the student's email
 
 
 
+                    var emailTo = Email;
+
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress("cooptraning@gmail.com"),
+                        Subject = "Thank you for your request",
+                        Body = "Enter This link to change your password https://localhost:44365/users/changePassword/" + emailCheck.Id,
+                        IsBodyHtml = false,
+                    };
+
+                    var MailClient = new SmtpClient("smtp.gmail.com", 587)
+                    {
+
+                        EnableSsl = true,
+
+                        Credentials = new System.Net.NetworkCredential("KFURestuaurant@gmail.com", "vsstbvnrhgmgshzs"),
+
+                    };
+
+                    mailMessage.To.Add(emailTo);
+                    MailClient.Send(mailMessage);
+                    ViewBag.succ = "Sent succefully";
+                    return View();
+                }
+                catch
+                {
+                    // Handle the error
+                    ViewBag.fail = "Sent Failed";
+
+                }
+            }
+
+
+            return View();
+
+        }
+
+        public IActionResult changePassword(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = _context.Users.Where(x => x.Id == id).FirstOrDefault();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> changePassword(int? id, string pass1, string pass2, [Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            if (pass1 == pass2)
+            {
+                try
+                {
+                    
+                    var pass = _context.Users.Where(x => x.Id == id).FirstOrDefault();
+                    _context.Attach(pass);
+                    string hashpass = BCrypt.Net.BCrypt.HashPassword(pass1);
+                    user.Password = hashpass;
+                    _context.Entry(pass).Property(x => x.Password).CurrentValue = hashpass;
+                    await _context.SaveChangesAsync();
+                    ViewBag.succ = "The password has changed succefully";
+                    return View(user);
+                }
+                catch
+                {
+                    ViewBag.fail = "Somthing wrong happend";
+                    return View(user);
+                }
+            }
+            else
+            {
+                ViewBag.wrong = "The passwords should be the same";
+                return View(user);
+            }
 
 
 
-
+        }
 
         //    var check = _context.Users.Where(d => d.Username == username && d.Password == password).SingleOrDefault();
 

@@ -14,6 +14,8 @@ namespace UniversityResturantInformation.Models
         public string ItemName { get; set; }
         public int Cal { get; set; }
         public bool IsDeleted { get; set; }
+        public float Total { get; set; }
+        public int NumberOfRating { get; set; }
 
     }
 }

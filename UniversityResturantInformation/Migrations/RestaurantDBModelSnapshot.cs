@@ -68,6 +68,12 @@ namespace UniversityResturantInformation.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberOfRating")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.ToTable("Items");
@@ -134,6 +140,9 @@ namespace UniversityResturantInformation.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<float>("total")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

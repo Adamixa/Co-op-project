@@ -8,6 +8,8 @@ using UniversityResturantInformation.Models;
 using System.Security.Claims;
 using System.Collections.Generic;
 using UniversityResturantInformation.ViewModel;
+using System.Reflection;
+using System;
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -27,7 +29,7 @@ namespace UniversityResturantInformation.Controllers
             return View(await restaurantDB.ToListAsync());
         }
 
-        [Authorize(Roles = "Student")] 
+        [Authorize(Roles = "User")] 
         public /*async*/ IActionResult Rate()
         {
             var  Item = _context.Items.ToList();
@@ -48,7 +50,7 @@ namespace UniversityResturantInformation.Controllers
             //    .ToListAsync();
             return View(Item2);
         }
-        [Authorize (Roles = "Student")]
+        [Authorize (Roles = "User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Rate(int RateItem , int Item)
@@ -56,13 +58,39 @@ namespace UniversityResturantInformation.Controllers
             //ViewBag.RateSubmit = _context.Ratings.Where(mx => mx.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
             try
             {
-                var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+                var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                var total = _context.Ratings.Count(r => r.ItemId == Item);
+                var fivestar = _context.Ratings.Where(s5 => s5.Rate == 5 && s5.ItemId == Item).Count();
+                var fourestar = _context.Ratings.Where(s4 => s4.Rate == 4 && s4.ItemId == Item).Count();
+                var threestar = _context.Ratings.Where(s3 => s3.Rate == 3 && s3.ItemId == Item).Count();
+                var twostar = _context.Ratings.Where(s2 => s2.Rate == 2 && s2.ItemId == Item).Count();
+                var onestar = _context.Ratings.Where(s1 => s1.Rate == 1 && s1.ItemId == Item).Count();
+                var it = _context.Items.Where(t => t.Id == Item).SingleOrDefault();
                 Rating rating = new Rating();
-                rating.Rate = RateItem;
-                rating.ItemId = Item;
-                rating.UserId = UserId;
-                _context.Ratings.Add(rating);
+
+                if (total == 0)
+                {
+                    rating.total = 5;
+                    rating.Rate = RateItem;
+                    rating.ItemId = Item;
+                    rating.UserId = UserId;
+                    _context.Ratings.Add(rating);
+
+                }
+                else
+                {
+                    decimal average = 0.0m;
+                    average = (decimal)((float)(onestar + (twostar * 2) + (threestar * 3) + (fourestar * 4) + (fivestar * 5)) / total);
+                    rating.Rate = RateItem;
+                    rating.ItemId = Item;
+                    rating.UserId = UserId;
+                    rating.total = (float)average;
+                    _context.Ratings.Add(rating);
+                    it.NumberOfRating = onestar  +  twostar + threestar + fourestar + fivestar + 1 ;
+                    it.Total = (float)Math.Round(average,2);
+                    _context.Update(it);
+                }
 
                 ViewData["Successful"] = "Rating submitted successfully!";
                 await _context.SaveChangesAsync();
@@ -84,17 +112,7 @@ namespace UniversityResturantInformation.Controllers
 
         public async Task<IActionResult> RatingResult()
         {
-            var itemRatings = await _context.Ratings
-        .Include(r => r.Item)
-        .GroupBy(r => r.ItemId)
-        .Select(group => new
-        {
-            Item = group.First().Item,
-            AverageRating = group.Average(r => r.Rate)
-        })
-        .ToListAsync();
-
-            return View(itemRatings);
+            return View(await _context.Items.Where(u => u.IsDeleted == false).ToListAsync());
         }
 
 

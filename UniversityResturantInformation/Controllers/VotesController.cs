@@ -164,7 +164,7 @@ namespace UniversityResturantInformation.Controllers
             return _context.Votes.Any(e => e.Id == id);
         }
       
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "User")]
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> vote()
@@ -207,7 +207,7 @@ namespace UniversityResturantInformation.Controllers
             return View();
 
         }
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> vote(int menuM)
@@ -225,7 +225,11 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> VoteResult()
         {
-            return View();
+            var Breakfast = _context.Votes.ToListAsync();
+
+                var restaurantDB = _context.Votes.Include(v => v.Menu).Include(v => v.User);
+            return View(await restaurantDB.ToListAsync());
+         
         }
     }
 }

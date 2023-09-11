@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace UniversityResturantInformation.Controllers
             _context = context; 
         }
         //[Authorize(Roles = "admin , student")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
@@ -56,22 +58,38 @@ namespace UniversityResturantInformation.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> Complaint(string Title, string Description, int Category)
+        public async Task<IActionResult> Index(string Title, string Description, int Category)
         {
-            //if (ModelState.IsValid)
-            //{
-            Compliant cm = new Compliant();
-            cm.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            cm.Title = Title;
-            cm.Description = Description;
-            cm.Category = Category;
-            cm.Date = DateTime.Now;
-            _context.Complaints.Add(cm);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", compliant.UserId);
-            //return View();
+            ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1 && mx.Item.IsDeleted == false)
+                .ToListAsync();
+
+            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2 && mx.Item.IsDeleted == false)
+                .ToListAsync();
+
+            ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 3 && mx.Item.IsDeleted == false)
+                .ToListAsync();
+            try
+            {
+                Compliant cm = new Compliant();
+                cm.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                cm.Title = Title;
+                cm.Description = Description;
+                cm.Category = Category;
+                cm.Date = DateTime.Now;
+                _context.Complaints.Add(cm);
+                await _context.SaveChangesAsync();
+                ViewData["Successful"] = "Your complaint has been sent successfully!";
+                return View();
+            }
+            catch
+            {
+                ViewData["Falied"] = "Falied";
+                return View();
+            }
+
         }
         public IActionResult Privacy()
         {

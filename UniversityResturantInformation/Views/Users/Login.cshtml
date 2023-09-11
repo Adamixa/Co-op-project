@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +25,9 @@
                 <h3 class="m-b-15">Login</h3>
                 <hr>
                 <!-- Login Form -->
+                <h5 id="Error" class="card-text danger" style="color:red">
+                    @ViewData["Login_error"]
+                </h5>
                 <form asp-action="Login">
                     <div class="form-group">
                         <input type="text" id="login" class="form-control" name="username" placeholder="Username">
@@ -36,7 +40,7 @@
                 </form>
                 <!-- Remind Passowrd -->
                 <div id="formFooter">
-                    <a class="underlineHover" href="#">Forgot Password?</a>
+                    <a class="underlineHover" asp-action="ForgetPassword">Forgot Password?</a>
                 </div>
             </div>
         </div>

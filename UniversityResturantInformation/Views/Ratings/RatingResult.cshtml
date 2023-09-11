@@ -1,184 +1,51 @@
-﻿@model IEnumerable<UniversityResturantInformation.Models.Rating>
+﻿@model IEnumerable<UniversityResturantInformation.Models.Item>
 
 @{
     ViewData["Title"] = "Rating Result";
     Layout = "AdminLayout";
 }
 
+<br />
+<br />
+<br />
+<br />
+<div class="table-responsive">
+    <table id="myTable" class="table table-striped table-sm border">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>
+                     Name
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                   Number of ratings
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName )
+                    </td>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
-    <style>
-
-.rating-card{
-padding:10px;
-background-color:#F5F5F5;
-width:70%;
-border-radius:10px;
-text-align: center;
-margin: 0 auto;
-margin-top:30px;
-box-shadow: 2px 2px 18px -2px #337AB7;
-}
-.fa-star,.fa-star-o{
-color:orange;
-}
-.rating-card h1{
-color:#337AB7;
-margin-bottom:30px;
-}
-.rating{
-width: 50%;
-float:left;
-}
-.rating p{
-margin-top:10px;
-font-size: 20px;
-}
-.rating h2{
-margin:0px;
-font-size:60px;
-font-weight: normal;
-}
-.rating-process{
-width: 50%;
-text-align: left;
-float:right;
-}
-.rating-right-part{
-margin-bottom:3px;
-}
-.rating-right-part p{
-margin:0px;
-}
-.progress,.progress-2,.progress-3,.progress-4,.progress-5{
-background:#c2c2c2;
-border-radius: 13px;
-height:18px;
-width:70%;
-padding:3px;
-margin:-20px 0px 0px 50px;
-display: block;
-}
-.progress:after,.progress-2:after,.progress-3:after,.progress-4:after,.progress-5:after{
-content: '';
-display: block;
-background: #337AB7;
-width:80%;
-height: 100%;
-border-radius: 9px;
-}
-.progress-2:after{
-width: 60%;
-}
-.progress-3:after{
-width:40%;
-}
-.progress-4:after{
-width:20%;
-}
-.progress-5:after{
-width:10%;
-}
-
-    </style>
-</head>
-<body>
-    <br />
-    <br />
-    <br />
-    <br />
-
-
-    @foreach (var itemRating in Model)
-    {
-        <div class="item-rating">
-            <h2>@itemRating.Item.ItemName</h2>
-@*             <p>Average Rating: @itemRating.AverageRating.ToString("0.0")</p>
- *@        </div>
-    }
-}     
-    <div class="row">
-        <div class="col-6">
-        <div class="rating-card">
-            <div><h1>Rating Card</h1></div>
-            <div class="rating">
-                <h2>4.0</h2>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star"></i>
-                <i aria-hidden="true" class="fa fa-star-o"></i>
-                <p><i class="fa fa-user" aria-hidden="true"></i> 1,050,800 total</p>
-            </div>
-            <div class="rating-process">
-                <div class="rating-right-part">
-                    <p><i aria-hidden="true" class="fa fa-star"></i> 80%</p>
-                    <div class="progress"></div>
-                </div>
-                <div class="rating-right-part">
-                    <p><i aria-hidden="true" class="fa fa-star"></i> 60%</p>
-                    <div class="progress-2"></div>
-                </div>
-                <div class="rating-right-part">
-                    <p><i aria-hidden="true" class="fa fa-star"></i> 40%</p>
-                    <div class="progress-3"></div>
-                </div>
-                <div class="rating-right-part">
-                    <p><i aria-hidden="true" class="fa fa-star"></i> 20%</p>
-                    <div class="progress-4"></div>
-                </div>
-                <div class="rating-right-part">
-                    <p><i aria-hidden="true" class="fa fa-star"></i> 10%</p>
-                    <div class="progress-5"></div>
-                </div>
-            </div>
-            <div style="clear:both;"></div>
-        </div>
-
-        </div>
-        <div class="col-6">
-            <div class="rating-card">
-                <div><h1>Rating Card</h1></div>
-                <div class="rating">
-                    <h2>4.0</h2>
-                    <i aria-hidden="true" class="fa fa-star"></i>
-                    <i aria-hidden="true" class="fa fa-star"></i>
-                    <i aria-hidden="true" class="fa fa-star"></i>
-                    <i aria-hidden="true" class="fa fa-star"></i>
-                    <i aria-hidden="true" class="fa fa-star-o"></i>
-                    <p><i class="fa fa-user" aria-hidden="true"></i> 1,050,800 total</p>
-                </div>
-                <div class="rating-process">
-                    <div class="rating-right-part">
-                        <p><i aria-hidden="true" class="fa fa-star"></i> 80%</p>
-                        <div class="progress"></div>
-                    </div>
-                    <div class="rating-right-part">
-                        <p><i aria-hidden="true" class="fa fa-star"></i> 60%</p>
-                        <div class="progress-2"></div>
-                    </div>
-                    <div class="rating-right-part">
-                        <p><i aria-hidden="true" class="fa fa-star"></i> 40%</p>
-                        <div class="progress-3"></div>
-                    </div>
-                    <div class="rating-right-part">
-                        <p><i aria-hidden="true" class="fa fa-star"></i> 20%</p>
-                        <div class="progress-4"></div>
-                    </div>
-                    <div class="rating-right-part">
-                        <p><i aria-hidden="true" class="fa fa-star"></i> 10%</p>
-                        <div class="progress-5"></div>
-                    </div>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-
-        </div>
-
-     </div>
-</body>
-</html>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)/5
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfRating)
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

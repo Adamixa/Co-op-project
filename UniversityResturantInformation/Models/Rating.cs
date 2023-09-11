@@ -8,6 +8,7 @@
         public Item Item { get; set; }
         public int ItemId { get; set; }
         public int Rate { get; set; }
+        public float total { get; set; }
 
     }
 }
