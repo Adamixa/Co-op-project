@@ -169,6 +169,85 @@ namespace UniversityResturantInformation.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> vote()
         {
+            try
+            {
+
+
+                ViewBag.BreakfastMenus = await _context.Menus
+                    .Where(mx => mx.IsVoteable == true && mx.Meal == 1)
+                    .ToListAsync();
+
+                ViewBag.LunchMenus = await _context.Menus
+                    .Where(mx => mx.IsVoteable == true && mx.Meal == 2)
+                    .ToListAsync();
+
+                ViewBag.DinnerMenus = await _context.Menus
+                    .Where(mx => mx.IsVoteable == true && mx.Meal == 3)
+                    .ToListAsync();
+
+
+
+                ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+                               .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 1)
+                               .ToListAsync();
+
+                ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 2)
+                    .ToListAsync();
+
+                ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 3)
+                    .ToListAsync();
+
+                ViewBag.BreakfastSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 1 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+
+                ViewBag.LunchSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 2 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+
+                ViewBag.DinnerSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 3 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+
+
+
+                return View();
+            }
+            catch
+            {
+                return View();
+
+            }
+        }
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> vote(int menuM)
+        {
+            try
+            {
+                Vote vote = new Vote();
+                vote.MenuId = menuM;
+                vote.Date = DateTime.Now;
+                vote.IsFinished = false;
+                vote.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                _context.Votes.Add(vote);
+
+                var m = _context.Menus.Find(menuM);
+                m.TotalVotes = m.TotalVotes + 1;
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(vote));
+            }
+            catch 
+            {
+                return RedirectToAction(nameof(vote));
+            }
+           
+           
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> VoteResult()
+        {
+           
 
             ViewBag.BreakfastMenus = await _context.Menus
                 .Where(mx => mx.IsVoteable == true && mx.Meal == 1)
@@ -198,38 +277,60 @@ namespace UniversityResturantInformation.Controllers
 
             ViewBag.BreakfastSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 1 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
 
-            ViewBag.LunchSubmit =  _context.Votes.Where(mx => mx.Menu.Meal == 2 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+            ViewBag.LunchSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 2 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
 
             ViewBag.DinnerSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 3 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
-              
 
-           
+            return View();
+         
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VoteResult(int menuM)
+        {
+            var m = _context.Menus.Find(menuM);
+            var n = _context.Menus.ToList().Where(mx => mx.IsActive == true && mx.Meal == m.Meal);
+            foreach(var menu in n)
+            {
+                menu.IsActive = false;
+                menu.IsVoteable = true;
+                await _context.SaveChangesAsync();
+            }
+            m.IsVoteable = false;
+            m.IsActive = true;
+
+            await _context.SaveChangesAsync();
             return View();
 
         }
-        [Authorize(Roles = "User")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> vote(int menuM)
-        {
-            Vote vote = new Vote();
-            vote.MenuId = menuM;
-            vote.Date = DateTime.Now;
-            vote.IsFinished = false;
-            vote.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            _context.Votes.Add(vote);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> VoteResult()
+        public async Task<IActionResult> Archive()
         {
-            var Breakfast = _context.Votes.ToListAsync();
+           
+            var n = _context.Votes.ToList();
+           
+            
+            foreach (var vote in n)
+            {
+                var m = _context.Menus.Find(vote.MenuId);
+                Archive archive = new Archive();
+                archive.MenuCode = vote.MenuId;
+                archive.Date = vote.Date;
+                archive.Record = m.TotalVotes;
+                _context.Archives.Add(archive);
+                m.TotalVotes = 0;
+                await _context.SaveChangesAsync();
+            }
 
-                var restaurantDB = _context.Votes.Include(v => v.Menu).Include(v => v.User);
-            return View(await restaurantDB.ToListAsync());
-         
+            foreach (var item in _context.Votes)
+            {
+               _context.Votes.Remove(item);
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Admin", "Users");
+
         }
     }
 }

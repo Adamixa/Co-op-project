@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityResturantInformation.Models;
 
 namespace UniversityResturantInformation.Migrations
 {
     [DbContext(typeof(RestaurantDB))]
-    partial class RestaurantDBModelSnapshot : ModelSnapshot
+    [Migration("20230911094123_archive1")]
+    partial class archive1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace UniversityResturantInformation.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Archives");
+                    b.ToTable("Archive");
                 });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Compliant", b =>
@@ -78,9 +80,6 @@ namespace UniversityResturantInformation.Migrations
 
                     b.Property<int>("Cal")
                         .HasColumnType("int");
-
-                    b.Property<string>("File")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
