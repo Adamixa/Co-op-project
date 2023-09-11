@@ -60,40 +60,46 @@ namespace UniversityResturantInformation.Controllers
             {
 
                 var UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                var CountItem = _context.Ratings.Where(I => I.ItemId == Item).Count();
+                var it = _context.Items.Where(t => t.Id == Item).SingleOrDefault();
+                Rating rating = new Rating();
+                decimal average = 0.0m;
+
+                if (CountItem == 0)
+                {
+                    rating.total = RateItem;
+                    rating.Rate = RateItem;
+                    rating.ItemId = Item;
+                    rating.UserId = UserId;
+                    _context.Ratings.Add(rating);
+                    await _context.SaveChangesAsync();
+
+                }
+                else
+                {
+
+                   
+                    rating.Rate = RateItem;
+                    rating.ItemId = Item;
+                    rating.UserId = UserId;
+                    rating.total = RateItem;
+                    _context.Ratings.Add(rating);
+                    await _context.SaveChangesAsync();
+
+                }
                 var total = _context.Ratings.Count(r => r.ItemId == Item);
                 var fivestar = _context.Ratings.Where(s5 => s5.Rate == 5 && s5.ItemId == Item).Count();
                 var fourestar = _context.Ratings.Where(s4 => s4.Rate == 4 && s4.ItemId == Item).Count();
                 var threestar = _context.Ratings.Where(s3 => s3.Rate == 3 && s3.ItemId == Item).Count();
                 var twostar = _context.Ratings.Where(s2 => s2.Rate == 2 && s2.ItemId == Item).Count();
                 var onestar = _context.Ratings.Where(s1 => s1.Rate == 1 && s1.ItemId == Item).Count();
-                var it = _context.Items.Where(t => t.Id == Item).SingleOrDefault();
-                Rating rating = new Rating();
-
-                if (total == 0)
-                {
-                    rating.total = 5;
-                    rating.Rate = RateItem;
-                    rating.ItemId = Item;
-                    rating.UserId = UserId;
-                    _context.Ratings.Add(rating);
-
-                }
-                else
-                {
-                    decimal average = 0.0m;
-                    average = (decimal)((float)(onestar + (twostar * 2) + (threestar * 3) + (fourestar * 4) + (fivestar * 5)) / total);
-                    rating.Rate = RateItem;
-                    rating.ItemId = Item;
-                    rating.UserId = UserId;
-                    rating.total = (float)average;
-                    _context.Ratings.Add(rating);
-                    it.NumberOfRating = onestar  +  twostar + threestar + fourestar + fivestar + 1 ;
-                    it.Total = (float)Math.Round(average,2);
-                    _context.Update(it);
-                }
+                average = (decimal)((float)(onestar + (twostar * 2) + (threestar * 3) + (fourestar * 4) + (fivestar * 5)) / (total));
+                it.NumberOfRating = onestar + twostar + threestar + fourestar + fivestar;
+                it.Total = (float)Math.Round(average, 2);
+                _context.Update(it);
+                await _context.SaveChangesAsync();
 
                 ViewData["Successful"] = "Rating submitted successfully!";
-                await _context.SaveChangesAsync();
            
                 //ViewBag.ItemSubmit = _context.Ratings.Where(us => us.UserId == UserId && Item == userRating.ItemId).Count();
 

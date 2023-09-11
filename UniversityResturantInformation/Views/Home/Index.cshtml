@@ -18,7 +18,7 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        if (User.FindFirst(ClaimTypes.Role).Value == "Student")
+                        if (User.FindFirst(ClaimTypes.Role).Value == "User")
                         {
                                         <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                                             <a href="https://localhost:44365/votes/vote" class="btn-book-a-table">Vote on Menu</a>
@@ -223,7 +223,7 @@
     @{
         if (User.Identity.IsAuthenticated)
         {
-            if (User.FindFirst(ClaimTypes.Role).Value == "Student")
+            if (User.FindFirst(ClaimTypes.Role).Value == "User")
             {
                             <!-- ======= Contact Section ======= -->
                             <section id="contact" class="contact">
