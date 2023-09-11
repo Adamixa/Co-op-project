@@ -11,5 +11,6 @@ namespace UniversityResturantInformation.Models
         public int Meal { get; set; }//1 for breakfast, 2 for lunch, 3 for dinner
         public bool IsVoteable { get; set; }
         public bool IsDeleted { get; set; }
+        public int TotalVotes { get; set; }
     }
 }

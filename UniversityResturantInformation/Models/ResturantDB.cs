@@ -24,7 +24,7 @@ namespace UniversityResturantInformation.Models
         public virtual DbSet<Vote> Votes { get; set; }
         public virtual DbSet<Compliant> Complaints { get; set; }
         public virtual DbSet<Menu_Item> Menu_Items { get; set; }
-
+        public virtual DbSet<Archive> Archives { get; set; }
 
     }
 }
