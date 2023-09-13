@@ -347,7 +347,7 @@ namespace UniversityResturantInformation.Controllers
                     {
                         From = new MailAddress("cooptraning@gmail.com"),
                         Subject = "Thank you for your request",
-                        Body = "Enter This link to change your password https://localhost:44365/users/changePassword/" + emailCheck.Id,
+                        Body = "Enter This link to change your password https://localhost:44365/users/changePassword/" + emailCheck.Guid,
                         IsBodyHtml = false,
                     };
 
@@ -356,14 +356,14 @@ namespace UniversityResturantInformation.Controllers
 
                         EnableSsl = true,
 
-                        Credentials = new System.Net.NetworkCredential("KFURestuaurant@gmail.com", "vsstbvnrhgmgshzs"),
+                        Credentials = new System.Net.NetworkCredential("cooptraning@gmail.com", "vsstbvnrhgmgshzs"),
 
                     };
 
                     mailMessage.To.Add(emailTo);
                     MailClient.Send(mailMessage);
                     ViewBag.succ = "Sent succefully";
-                    return View();
+                    return RedirectToAction("Index" , "Home");
                 }
                 catch
                 {
@@ -378,14 +378,14 @@ namespace UniversityResturantInformation.Controllers
 
         }
 
-        public IActionResult changePassword(int? id)
+        public IActionResult changePassword(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = _context.Users.Where(x => x.Id == id).FirstOrDefault();
+            var user = _context.Users.Where(x => x.Guid == id).FirstOrDefault();
             if (user == null)
             {
                 return NotFound();
@@ -395,7 +395,7 @@ namespace UniversityResturantInformation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> changePassword(int? id, string pass1, string pass2, [Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
+        public async Task<IActionResult> changePassword(Guid? id, string pass1, string pass2, [Bind("Id,Username,RoleId,Name,Mobile,Password,Email")] User user)
         {
             if (id == null)
             {
@@ -407,13 +407,14 @@ namespace UniversityResturantInformation.Controllers
                 try
                 {
                     
-                    var pass = _context.Users.Where(x => x.Id == id).FirstOrDefault();
+                    var pass = _context.Users.Where(x => x.Guid == id).FirstOrDefault();
                     _context.Attach(pass);
                     string hashpass = BCrypt.Net.BCrypt.HashPassword(pass1);
                     user.Password = hashpass;
                     _context.Entry(pass).Property(x => x.Password).CurrentValue = hashpass;
                     await _context.SaveChangesAsync();
                     ViewBag.succ = "The password has changed succefully";
+                    ViewData["Successful"] = "The password has changed successfully!";
                     return View(user);
                 }
                 catch

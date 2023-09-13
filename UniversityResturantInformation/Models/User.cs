@@ -20,7 +20,7 @@ namespace UniversityResturantInformation.Models
         public string Password { get; set; }
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
-        [RegularExpression(@"[\w]*@*[a-z]*\.*[\w]{3,}(\.)*(com)*(@*.kfu.edu.sa)", ErrorMessage = "Email Doesn't match with University domain")]
+        //[RegularExpression(@"[\w]*@*[a-z]*\.*[\w]{3,}(\.)*(com)*(@*.kfu.edu.sa)", ErrorMessage = "Email Doesn't match with University domain")]
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
         public Guid Guid { get; set; }

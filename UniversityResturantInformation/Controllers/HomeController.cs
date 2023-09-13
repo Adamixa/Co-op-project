@@ -28,20 +28,27 @@ namespace UniversityResturantInformation.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
-                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1 && mx.Item.IsDeleted == false)
-                .ToListAsync();
+            try
+            {
+                ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1 && mx.Item.IsDeleted == false)
+                    .ToListAsync();
 
-            ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
-                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2 && mx.Item.IsDeleted == false)
-                .ToListAsync();
-            
-            ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
-                .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 3 && mx.Item.IsDeleted == false)
-                .ToListAsync();
+                ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2 && mx.Item.IsDeleted == false)
+                    .ToListAsync();
 
-            
-            return View();
+                ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 3 && mx.Item.IsDeleted == false)
+                    .ToListAsync();
+
+
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //[HttpPost]
@@ -55,6 +62,24 @@ namespace UniversityResturantInformation.Controllers
         //    }
         //    ViewData["UserId"] = new SelectList(_context.Users, "Username", "Id", compliant.UserId);
         //    return View();
+        //}
+
+
+
+        //public async Task<IActionResult> Complaint()
+        //{
+        //    ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+        //        .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 1 && mx.Item.IsDeleted == false)
+        //        .ToListAsync();
+
+        //    ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+        //        .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 2 && mx.Item.IsDeleted == false)
+        //        .ToListAsync();
+
+        //    ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+        //        .Include(m => m.Menu).Where(mx => mx.Menu.IsActive == true && mx.Menu.Meal == 3 && mx.Item.IsDeleted == false)
+        //        .ToListAsync();
+        //    return RedirectToAction("Index", "Home");
         //}
 
         [HttpPost]
