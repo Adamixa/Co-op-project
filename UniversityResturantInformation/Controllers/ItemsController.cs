@@ -20,7 +20,10 @@ namespace UniversityResturantInformation.Controllers
         {
             _context = context;
         }
-
+        private bool ItemsExists(int id)
+        {
+            return _context.Items.Any(e => e.Id == id);
+        }
         [Authorize(Roles = "Admin, DataEntry")]
         // GET: Items
         public async Task<IActionResult> Index()
@@ -64,10 +67,10 @@ namespace UniversityResturantInformation.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (item.UploadedImage != null)
+                if (item.UploadedImage != null && item.UploadedImage.ContentType.StartsWith("image/"))
                 {
                     // Get the image path
-                    var imagePath = Path.Combine("wwwroot", "images", "items", item.UploadedImage.FileName);
+                    var imagePath = Path.Combine("wwwroot", "img", "items", item.UploadedImage.FileName);
 
                     // Save the file to the wwwroot\images\items\ directory
                     using (var stream = new FileStream(imagePath, FileMode.Create))
@@ -129,50 +132,100 @@ namespace UniversityResturantInformation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ItemCode,ItemName,Cal,UploadedImage")] Item items)
         {
-            if (id != items.Id)
+             try
+            {
+                 if (items.UploadedImage != null && items.UploadedImage.ContentType.StartsWith("image/"))
+                 {
+                // Get the image path
+                var imagePath = Path.Combine("wwwroot", "img", "items", items.UploadedImage.FileName);
+
+                // Save the file to the wwwroot\images\items\ directory
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await items.UploadedImage.CopyToAsync(stream);
+                }
+
+                // Get the relative path of the image file
+                var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
+
+                    // Update the Image field of the items object
+                    items.File = '/' + relativeImagePath.Replace('\\', '/');
+                }
+
+            // Retrieve the existing entity from the context
+            var existingItem = await _context.Items.FindAsync(items.Id);
+
+            if (existingItem == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    if (items.UploadedImage != null )
-                    {
-                        // Get the image path
-                        var imagePath = Path.Combine("wwwroot", "images", "items", items.UploadedImage.FileName);
+            existingItem.ItemName = items.ItemName;
+            existingItem.ItemCode = items.ItemCode;
+            existingItem.Cal = items.Cal;
+            existingItem.IsDeleted = items.IsDeleted;
+            existingItem.File = items.File;
 
-                        // Save the file to the wwwroot\images\items\ directory
-                        using (var stream = new FileStream(imagePath, FileMode.Create))
-                        {
-                            await items.UploadedImage.CopyToAsync(stream);
-                        }
 
-                        // Get the relative path of the image file
-                        var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
-
-                        // Update the Image field of the items object
-                        items.File = '/' + relativeImagePath.Replace('\\', '/');
-                    }
-                    _context.Update(items);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ItemExists(items.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(items);
+                // Save the changes
+                await _context.SaveChangesAsync();
         }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemsExists(items.Id))
+                {
+                    return NotFound();
+    }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+            //if (id != items.Id)
+            //{
+            //    return NotFound();
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        if (items.UploadedImage != null && items.UploadedImage.ContentType.StartsWith("img/"))
+            //        {
+            //            // Get the image path
+            //            var imagePath = Path.Combine("wwwroot", "img", "items", items.UploadedImage.FileName);
+
+            //            // Save the file to the wwwroot\images\items\ directory
+            //            using (var stream = new FileStream(imagePath, FileMode.Create))
+            //            {
+            //                await items.UploadedImage.CopyToAsync(stream);
+            //            }
+
+            //            // Get the relative path of the image file
+            //            var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
+
+            //            // Update the Image field of the items object
+            //            items.File = '/' + relativeImagePath.Replace('\\', '/');
+            //        }
+            //        _context.Update(items);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!ItemExists(items.Id))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(items);}
 
         // GET: Items/Delete/5
         [Authorize(Roles = "Admin, DataEntry")]

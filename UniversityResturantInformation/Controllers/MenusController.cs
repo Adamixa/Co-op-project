@@ -91,7 +91,7 @@ namespace UniversityResturantInformation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IsActive,Meal")] Menu menu)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IsActive,Meal,IsVoteable")] Menu menu)
         {
             if (id != menu.Id)
             {

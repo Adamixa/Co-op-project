@@ -2309,3 +2309,6 @@ C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\refs\WindowsBase.dll
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\UniversityResturantInformation.Views.dll
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin\Debug\netcoreapp3.1\UniversityResturantInformation.Views.pdb
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\changePassword.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\ForgetPassword.cshtml.g.cs
+E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Archive.cshtml.g.cs
