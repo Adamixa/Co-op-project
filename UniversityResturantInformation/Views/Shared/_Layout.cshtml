@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -59,6 +60,43 @@
                     <li><a href="https://localhost:44365/#about">About</a></li>
                     <li><a href="https://localhost:44365/#menu">Menu</a></li>
                     <li><a href="https://localhost:44365/#contact">Contact</a></li>
+                    @try
+                    {
+                        @if (User.FindFirst(ClaimTypes.Role).Value == "User")
+                        {
+                            <li>
+                                <a href="https://localhost:44365/votes/vote">
+                                    Vote On Menu</a>
+                            </li>
+                            <li>
+                                <a href="https://localhost:44365/Ratings/Rate">Rate Our Items</a>
+                            </li>
+                        }
+                        @if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+                        {
+                            <li>
+                                <a href="https://localhost:44365/users/admin">
+                                    Admin Page
+                                </a>
+                            </li>
+
+                        }
+                        @if (User.FindFirst(ClaimTypes.Role).Value == "DataEntry")
+                        {
+                            <li>
+                                <a href="https://localhost:44365/users/dataentry">
+                                    Admin Page
+                                </a>
+                            </li>
+
+                        }
+                    }catch
+
+                    
+
+            {
+                
+            }
                 </ul>
             </nav>
             <!-- .navbar -->
