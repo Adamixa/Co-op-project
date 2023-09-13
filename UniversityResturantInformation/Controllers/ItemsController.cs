@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -59,10 +60,27 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ItemCode,ItemName,Cal")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,ItemCode,ItemName,Cal,UploadedImage")] Item item)
         {
             if (ModelState.IsValid)
             {
+                if (item.UploadedImage != null)
+                {
+                    // Get the image path
+                    var imagePath = Path.Combine("wwwroot", "images", "items", item.UploadedImage.FileName);
+
+                    // Save the file to the wwwroot\images\items\ directory
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await item.UploadedImage.CopyToAsync(stream);
+                    }
+
+                    // Get the relative path of the image file
+                    var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
+
+                    // Save the relative path of the image file into the Image field
+                    item.File = "\\" + relativeImagePath;
+                }
                 var checkItemCode = _context.Items.SingleOrDefault(u => u.ItemCode == item.ItemCode);
                 var checkItemName = _context.Items.SingleOrDefault(u => u.ItemName == item.ItemName);
 
@@ -109,9 +127,9 @@ namespace UniversityResturantInformation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemCode,ItemName,Cal")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemCode,ItemName,Cal,UploadedImage")] Item items)
         {
-            if (id != item.Id)
+            if (id != items.Id)
             {
                 return NotFound();
             }
@@ -120,12 +138,29 @@ namespace UniversityResturantInformation.Controllers
             {
                 try
                 {
-                    _context.Update(item);
+                    if (items.UploadedImage != null )
+                    {
+                        // Get the image path
+                        var imagePath = Path.Combine("wwwroot", "images", "items", items.UploadedImage.FileName);
+
+                        // Save the file to the wwwroot\images\items\ directory
+                        using (var stream = new FileStream(imagePath, FileMode.Create))
+                        {
+                            await items.UploadedImage.CopyToAsync(stream);
+                        }
+
+                        // Get the relative path of the image file
+                        var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
+
+                        // Update the Image field of the items object
+                        items.File = '/' + relativeImagePath.Replace('\\', '/');
+                    }
+                    _context.Update(items);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ItemExists(item.Id))
+                    if (!ItemExists(items.Id))
                     {
                         return NotFound();
                     }
@@ -136,7 +171,7 @@ namespace UniversityResturantInformation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(item);
+            return View(items);
         }
 
         // GET: Items/Delete/5
