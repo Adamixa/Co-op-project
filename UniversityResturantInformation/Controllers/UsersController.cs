@@ -76,6 +76,7 @@ namespace UniversityResturantInformation.Controllers
             if (ModelState.IsValid)
             {
                 var checkUser = _context.Users.SingleOrDefault(u => u.Username == user.Username);
+                var checkEmail = _context.Users.SingleOrDefault(u => u.Email == user.Email);
                 try
                 {
                     if (checkUser != null)
@@ -83,6 +84,11 @@ namespace UniversityResturantInformation.Controllers
                         ModelState.AddModelError(string.Empty, "Username already exists.");
                         return View(user);
 
+                    }
+                    if(checkEmail != null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Email already exists.");
+                        return View(user);
                     }
                     else
                     {

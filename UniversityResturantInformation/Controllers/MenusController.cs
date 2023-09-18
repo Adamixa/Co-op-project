@@ -104,6 +104,17 @@ namespace UniversityResturantInformation.Controllers
                 {
                     _context.Update(menu);
                     await _context.SaveChangesAsync();
+                    if (menu.IsActive)
+                    {
+                        foreach (var item in _context.Menus.Where(m => m.Meal == menu.Meal).ToList())
+                        {
+                            item.IsActive = false;
+                        }
+                        menu.IsActive = true;
+                        await _context.SaveChangesAsync();
+                    }
+                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
