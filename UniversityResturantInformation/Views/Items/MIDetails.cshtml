@@ -1,0 +1,63 @@
+﻿@using System.Security.Claims;
+@model UniversityResturantInformation.Models.Menu_Item
+
+@{
+    ViewData["Title"] = "Details";
+    if (User.FindFirst(ClaimTypes.Role).Value == "DataEntry")
+    {
+        Layout = "DataEntryLayout";
+    }
+    else if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+    {
+        Layout = "AdminLayout";
+    }
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Menu Item</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.ItemCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.ItemCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.ItemName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item.Cal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.Cal)
+        </dd>
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.Item.File" width="170" alt="">
+
+        </dd>
+        <dt class="col-sm-2">
+            Menu Number
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Menu.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Menu.Meal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Menu.Meal)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="MIIndex">Back to List</a>
+</div>

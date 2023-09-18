@@ -2314,3 +2314,9 @@ E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityRest
 E:\coop project repo\UniversityResturantInformation\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Archive.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Complaint.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Archive.cshtml.g.cs
+C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Complaint.cshtml.g.cs
+C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\changePassword.cshtml.g.cs
+C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Users\ForgetPassword.cshtml.g.cs
+C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Votes\Archive.cshtml.g.cs
+C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MIDelete.cshtml.g.cs
+C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MIDetails.cshtml.g.cs

@@ -45,8 +45,12 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
+                if (item.IsDeleted != true)
+                {
+
+
+                   <tr>
+                        <td>
                         @Html.DisplayFor(modelItem => item.ItemCode)
                     </td>
                     <td>
@@ -70,7 +74,8 @@
                             <i class="bi bi-trash"></i>
                         </a>
                     </td>
-                </tr>
+                   </tr>
+                }
             }
         </tbody>
     </table>

@@ -11,5 +11,6 @@ namespace UniversityResturantInformation.Models
         public Menu Menu { get; set; }
         [Required(ErrorMessage = "Menu is required")]
         public int MenuId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

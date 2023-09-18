@@ -391,7 +391,52 @@ namespace UniversityResturantInformation.Controllers
             return View(MenuItem);
         }
 
+        [Authorize(Roles = "Admin, DataEntry")]
+        public async Task<IActionResult> MIDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var item = await _context.Menu_Items.Include(x=>x.Menu).Include(y=>y.Item)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return View(item);
+        }
+
+        [HttpPost, ActionName("MIDelete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MIDeleteConfirmed(int id)
+        {
+            var item = await _context.Menu_Items.FindAsync(id);
+            item.IsDeleted = true;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(MIIndex));
+        }
+
+        [Authorize(Roles = "Admin, DataEntry")]
+        // GET: Items/Details/5
+        public async Task<IActionResult> MIDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var item = await _context.Menu_Items.Include(x=>x.Item).Include(y=>y.Menu)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return View(item);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, DataEntry")]
