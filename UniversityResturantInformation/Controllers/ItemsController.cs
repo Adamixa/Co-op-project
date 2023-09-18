@@ -134,38 +134,47 @@ namespace UniversityResturantInformation.Controllers
         {
              try
             {
-                 if (items.UploadedImage != null && items.UploadedImage.ContentType.StartsWith("image/"))
-                 {
-                // Get the image path
-                var imagePath = Path.Combine("wwwroot", "img", "items", items.UploadedImage.FileName);
+                
+                    if (items.UploadedImage != null && items.UploadedImage.ContentType.StartsWith("image/"))
+                    {
+                        // Get the image path
+                        var imagePath = Path.Combine("wwwroot", "img", "items", items.UploadedImage.FileName);
 
-                // Save the file to the wwwroot\images\items\ directory
-                using (var stream = new FileStream(imagePath, FileMode.Create))
+                        // Save the file to the wwwroot\images\items\ directory
+                        using (var stream = new FileStream(imagePath, FileMode.Create))
+                        {
+                            await items.UploadedImage.CopyToAsync(stream);
+                        }
+
+                        // Get the relative path of the image file
+                        var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
+
+                        // Update the Image field of the items object
+                        items.File = '/' + relativeImagePath.Replace('\\', '/');
+                    }
+
+                    // Retrieve the existing entity from the context
+                    var existingItem = await _context.Items.FindAsync(items.Id);
+
+                    if (existingItem == null)
+                    {
+                        return NotFound();
+                    }
+
+                    existingItem.ItemName = items.ItemName;
+                    existingItem.ItemCode = items.ItemCode;
+                    existingItem.Cal = items.Cal;
+                    existingItem.IsDeleted = items.IsDeleted;
+                    if (items.File == null)
+                    {
+                        var image = _context.Items.Find(items.Id);
+                        existingItem.File=image.File;
+                }
+                else
                 {
-                    await items.UploadedImage.CopyToAsync(stream);
+                    existingItem.File = items.File;
+
                 }
-
-                // Get the relative path of the image file
-                var relativeImagePath = Path.GetRelativePath("wwwroot", imagePath);
-
-                    // Update the Image field of the items object
-                    items.File = '/' + relativeImagePath.Replace('\\', '/');
-                }
-
-            // Retrieve the existing entity from the context
-            var existingItem = await _context.Items.FindAsync(items.Id);
-
-            if (existingItem == null)
-            {
-                return NotFound();
-            }
-
-            existingItem.ItemName = items.ItemName;
-            existingItem.ItemCode = items.ItemCode;
-            existingItem.Cal = items.Cal;
-            existingItem.IsDeleted = items.IsDeleted;
-            existingItem.File = items.File;
-
 
                 // Save the changes
                 await _context.SaveChangesAsync();
@@ -305,7 +314,9 @@ namespace UniversityResturantInformation.Controllers
                     _context.SaveChanges();
                 }
 
-                return RedirectToAction(nameof(MIIndex));
+                ViewData["Successful"] = " The menu has been created successfully!";
+                ViewBag.Item = _context.Items.Where(u => u.IsDeleted == false);
+                return View();
             }
             catch
             {

@@ -222,6 +222,39 @@ namespace UniversityResturantInformation.Controllers
         {
             try
             {
+                ViewBag.BreakfastMenus = await _context.Menus
+                    .Where(mx => mx.IsVoteable == true && mx.Meal == 1)
+                    .ToListAsync();
+
+                ViewBag.LunchMenus = await _context.Menus
+                    .Where(mx => mx.IsVoteable == true && mx.Meal == 2)
+                    .ToListAsync();
+
+                ViewBag.DinnerMenus = await _context.Menus
+                    .Where(mx => mx.IsVoteable == true && mx.Meal == 3)
+                    .ToListAsync();
+
+
+
+                ViewBag.Breakfast = await _context.Menu_Items.Include(d => d.Item)
+                               .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 1)
+                               .ToListAsync();
+
+                ViewBag.Lunch = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 2)
+                    .ToListAsync();
+
+                ViewBag.Dinner = await _context.Menu_Items.Include(d => d.Item)
+                    .Include(m => m.Menu).Where(mx => mx.Menu.IsVoteable == true && mx.Menu.Meal == 3)
+                    .ToListAsync();
+
+                ViewBag.BreakfastSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 1 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+
+                ViewBag.LunchSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 2 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+
+                ViewBag.DinnerSubmit = _context.Votes.Where(mx => mx.Menu.Meal == 3 && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == mx.UserId).Count();
+
+
                 Vote vote = new Vote();
                 vote.MenuId = menuM;
                 vote.Date = DateTime.Now;
@@ -233,11 +266,13 @@ namespace UniversityResturantInformation.Controllers
                 m.TotalVotes = m.TotalVotes + 1;
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(vote));
+                ViewData["Successful"] = "Your vote has been sent successfully!";
+
+                return View();
             }
             catch 
             {
-                return RedirectToAction(nameof(vote));
+                return View();
             }
            
            

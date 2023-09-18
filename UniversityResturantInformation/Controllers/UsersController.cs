@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.ComponentModel.DataAnnotations;
 using BCrypt.Net;
 using System.Net.Mail;
+using UniversityResturantInformation.ViewModel;
 
 namespace UniversityResturantInformation.Controllers
 {
@@ -447,9 +448,38 @@ namespace UniversityResturantInformation.Controllers
         //}
         [Authorize(Roles = "Admin")]
         public IActionResult Admin()
+
         {
-            return View();
+            // Count users
+            int userCount = _context.Users.Count(d => d.IsDeleted == false);
+
+            // Count ratings
+            int ratingCount = _context.Ratings.Count();
+
+            // Count votes
+            int voteCount = _context.Votes.Count();
+
+            // Count items
+            int itemCount = _context.Items.Count(d => d.IsDeleted == false);
+
+            // Count menus
+            int menuCount = _context.Menus.Count(d =>d.IsDeleted==false);
+
+            int complaint = _context.Complaints.Count();
+
+            // Now, you have the counts for each entity
+
+            return View(new CountsViewModels
+            {
+                user = userCount,
+                rating = ratingCount,
+                vote = voteCount,
+                item = itemCount,
+                menu = menuCount,
+                complaint = complaint
+            });
         }
+                   
         [Authorize(Roles = "DataEntry")]
         public IActionResult DataEntry()
         {

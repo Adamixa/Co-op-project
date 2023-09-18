@@ -16,10 +16,10 @@ namespace UniversityResturantInformation.Models
         public bool IsDeleted { get; set; }
         public float Total { get; set; }
         public int NumberOfRating { get; set; }
-        public string? File { get; set; }
+        public string File { get; set; }
 
         [NotMapped]
-        [Required(ErrorMessage = "Please Add Image")]
+        //[Required(ErrorMessage = "Please Add Image")]
         public IFormFile UploadedImage { get; set; }
     }
 }

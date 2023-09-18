@@ -1,11 +1,12 @@
-﻿
+﻿@model UniversityResturantInformation.ViewModel.CountsViewModels
+
 @{
       Layout = "AdminLayout";
 }
 
 
 
-
+@* 
 
 <br />
 <br />
@@ -73,4 +74,188 @@
     </div>
 
          
+    </div> *@
+<style>
+    body {
+        background: #eee;
+    }
+
+    .card-box {
+        position: relative;
+        color: #fff;
+        padding: 20px 10px 40px;
+        margin: 20px 0px;
+    }
+
+        .card-box:hover {
+            text-decoration: none;
+            color: #f1f1f1;
+        }
+
+            .card-box:hover .icon i {
+                font-size: 100px;
+                transition: 1s;
+                -webkit-transition: 1s;
+            }
+
+        .card-box .inner {
+            padding: 5px 10px 0 10px;
+        }
+
+        .card-box h3 {
+            font-size: 27px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            white-space: nowrap;
+            padding: 0;
+            text-align: left;
+        }
+
+        .card-box p {
+            font-size: 25px;
+        }
+
+        .card-box .icon {
+            position: absolute;
+            top: auto;
+            bottom: 5px;
+            right: 5px;
+            z-index: 0;
+            font-size: 72px;
+            color: rgba(0, 0, 0, 0.15);
+        }
+
+        .card-box .card-box-footer {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            text-align: center;
+            padding: 3px 0;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .card-box:hover .card-box-footer {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+    .bg-blue {
+        background-color: #255e79 !important;
+    }
+
+    .bg-green {
+        background-color: #267778 !important;
+    }
+
+    .bg-orange {
+        background-color: #f3c33c !important;
+    }
+
+    .bg-red {
+        background-color: #df473c !important;
+    }
+
+    .bg-Purple {
+        background-color: #ae3c60 !important;
+    }
+
+    .bg-yellow {
+        background-color: #82b4bb !important;
+    }
+
+</style>
+<br />
+    <br />
+    <br />
+    <br />
+    <br />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-sm-6">
+            <div class="card-box bg-blue">
+                <div class="inner">
+                    <h3> @Model.user </h3>
+                    <p> Users </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <a href="index" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+            <div class="card-box bg-green">
+                <div class="inner">
+                    <h3> @Model.vote </h3>
+                    <p> Votes </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-inbox" aria-hidden="true"></i>
+                </div>
+                <a asp-action="VoteResult" asp-controller="Votes" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="card-box bg-orange">
+                <div class="inner">
+                    <h3> @Model.rating </h3>
+                    <p> Ratings </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+                <a asp-action="RatingResult" asp-controller="Ratings" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        
     </div>
+    <div class="row">
+        <div class="col-lg-4 col-sm-6">
+            <div class="card-box bg-Purple">
+                <div class="inner">
+                    <h3> @Model.item </h3>
+                    <p> Items </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                </div>
+                <a asp-action="Index" asp-controller="Items" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+            <div class="card-box bg-red">
+                <div class="inner">
+                    <h3> @Model.menu </h3>
+                    <p> Menus </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-th-large" aria-hidden="true"></i>
+                </div>
+                <a asp-action="MIIndex" asp-controller="Items" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+          <div class="col-lg-4 col-sm-6">
+            <div class="card-box bg-yellow">
+                <div class="inner">
+                    <h3> @Model.complaint </h3>
+                    <p> Complaints </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                </div>
+                <a asp-action="Index" asp-controller="Compliants" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<br />
+<br />
+<br />

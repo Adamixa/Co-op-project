@@ -51,10 +51,27 @@
                         @Html.DisplayFor(modelItem => item.Meal)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IsActive)
+                        @*@Html.DisplayFor(modelItem => item.IsActive) *@
+
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(modelItem => item.IsActive, new { @class = "form-check-input", id = "flexSwitchCheck" + (item.IsActive ? "Checked" : "Unchecked"), @checked = item.IsActive, @disabled = "disabled" })
+                            <label class="form-check-label" for="flexSwitchCheck@(item.IsActive ? "Checked" : "Unchecked")">
+                                @if (item.IsActive)
+                                {
+                                }
+                                else
+                                {
+                                }
+                            </label>
+                        </div>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IsVoteable)
+                        @* @Html.DisplayFor(modelItem => item.IsVoteable) *@
+
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(modelItem => item.IsVoteable, new { @class = "form-check-input", id = "flexSwitchCheck" + (item.IsVoteable ? "Checked" : "Unchecked"), @checked = item.IsVoteable, @disabled = "disabled" })
+                            <label class="form-check-label" for="flexSwitchCheck@(item.IsVoteable ? "Checked" : "Unchecked")"> </label>
+                        </div>
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">
