@@ -340,32 +340,46 @@ namespace UniversityResturantInformation.Controllers
 
         }
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Archive()
+        public async Task<IActionResult> Archive(int meal)
         {
-           
-            var n = _context.Votes.ToList();
-           
-            
-            foreach (var vote in n)
-            {
-                var m = _context.Menus.Find(vote.MenuId);
-                Archive archive = new Archive();
-                archive.MenuCode = vote.MenuId;
-                archive.Date = vote.Date;
-                archive.Record = m.TotalVotes;
-                _context.Archives.Add(archive);
-                m.TotalVotes = 0;
+            try {
+                var n = _context.Votes.Where(m => m.Menu.Meal == meal)
+                    .ToList();
+
+
+                foreach (var vote in n)
+                {
+                    var m = _context.Menus.Find(vote.MenuId);
+                    Archive archive = new Archive();
+                    archive.MenuCode = vote.MenuId;
+                    archive.Date = vote.Date;
+                    archive.Record = m.TotalVotes;
+                    _context.Archives.Add(archive);
+                    m.TotalVotes = 0;
+                    await _context.SaveChangesAsync();
+                }
+                var menuitem = _context.Menus
+                    .Where(m => m.Meal == meal).ToList();
+
+                foreach (var item in n)
+                {
+                    _context.Votes.Remove(item);
+                }
+
+                foreach (var item in menuitem)
+                {
+                    item.IsVoteable = false;
+                }
+
                 await _context.SaveChangesAsync();
-            }
+                return RedirectToAction("Admin", "Users");
 
-            foreach (var item in _context.Votes)
+            }
+            catch
             {
-               _context.Votes.Remove(item);
+                return RedirectToAction("VoteResult", "Votes");
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Admin", "Users");
+            }
 
-        }
     }
 }

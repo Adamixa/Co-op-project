@@ -55,14 +55,7 @@
 
                         <div class="form-check form-switch">
                             @Html.CheckBoxFor(modelItem => item.IsActive, new { @class = "form-check-input", id = "flexSwitchCheck" + (item.IsActive ? "Checked" : "Unchecked"), @checked = item.IsActive, @disabled = "disabled" })
-                            <label class="form-check-label" for="flexSwitchCheck@(item.IsActive ? "Checked" : "Unchecked")">
-                                @if (item.IsActive)
-                                {
-                                }
-                                else
-                                {
-                                }
-                            </label>
+                            <label class="form-check-label" for="flexSwitchCheck@(item.IsActive ? "Checked" : "Unchecked")"> </label>
                         </div>
                     </td>
                     <td>

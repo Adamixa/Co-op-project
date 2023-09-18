@@ -10,8 +10,13 @@ using UniversityResturantInformation.Models;
 namespace UniversityResturantInformation.Migrations
 {
     [DbContext(typeof(RestaurantDB))]
+<<<<<<<< HEAD:UniversityResturantInformation/Migrations/20230918141511_MenuItemIsDeleted.Designer.cs
     [Migration("20230918141511_MenuItemIsDeleted")]
     partial class MenuItemIsDeleted
+========
+    [Migration("20230918134132_AddIsDeletedColumnInMenuItemTable")]
+    partial class AddIsDeletedColumnInMenuItemTable
+>>>>>>>> 06a0a12ba49e6b74051efcc1076f63752a815063:UniversityResturantInformation/Migrations/20230918134132_AddIsDeletedColumnInMenuItemTable.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
