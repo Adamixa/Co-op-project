@@ -2,22 +2,22 @@
 
 namespace UniversityResturantInformation.Migrations
 {
-    public partial class TotalColumnInItemTable : Migration
+    public partial class AddIsDeletedColumnInMenuItemTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<float>(
-                name: "total",
-                table: "Items",
+            migrationBuilder.AddColumn<bool>(
+                name: "IsDeleted",
+                table: "Menu_Items",
                 nullable: false,
-                defaultValue: 0f);
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "total",
-                table: "Items");
+                name: "IsDeleted",
+                table: "Menu_Items");
         }
     }
 }

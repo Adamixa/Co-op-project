@@ -356,7 +356,7 @@ namespace UniversityResturantInformation.Controllers
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
             return View(item);
         }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> MenuItemEdit(int id, [Bind("Id,ItemId, MenuId")] Menu_Item MenuItem)

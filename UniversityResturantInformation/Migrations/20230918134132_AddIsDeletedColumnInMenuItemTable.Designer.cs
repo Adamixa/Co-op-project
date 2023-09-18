@@ -10,8 +10,8 @@ using UniversityResturantInformation.Models;
 namespace UniversityResturantInformation.Migrations
 {
     [DbContext(typeof(RestaurantDB))]
-    [Migration("20230906062345_IsDeleted")]
-    partial class IsDeleted
+    [Migration("20230918134132_AddIsDeletedColumnInMenuItemTable")]
+    partial class AddIsDeletedColumnInMenuItemTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,27 @@ namespace UniversityResturantInformation.Migrations
                 .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("UniversityResturantInformation.Models.Archive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MenuCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Record")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Archives");
+                });
 
             modelBuilder.Entity("UniversityResturantInformation.Models.Compliant", b =>
                 {
@@ -60,6 +81,9 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<int>("Cal")
                         .HasColumnType("int");
 
+                    b.Property<string>("File")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -69,6 +93,12 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfRating")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -94,6 +124,9 @@ namespace UniversityResturantInformation.Migrations
                     b.Property<int>("Meal")
                         .HasColumnType("int");
 
+                    b.Property<int>("TotalVotes")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
@@ -105,6 +138,9 @@ namespace UniversityResturantInformation.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -136,6 +172,9 @@ namespace UniversityResturantInformation.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<float>("total")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
