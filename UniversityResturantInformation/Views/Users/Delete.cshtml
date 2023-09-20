@@ -6,7 +6,7 @@
 }
 <script>
     @{
-        if (@ViewData["Successful"] != null)
+        if (@ViewData["Successful"] != null && @ViewData["Successful"] != "")
         {
             <Text>
                                                                     var result = '@Html.Raw(ViewData["Successful"])';

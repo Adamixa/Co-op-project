@@ -47,9 +47,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Meal)
-                    </td>
+                        @if (item.Meal == 1)
+                        {
+                            <td>BreakFast</td>
+                        }
+                        else if (item.Meal == 2)
+                        {
+                            <td>Lunch</td>
+                        }
+                        else
+                        {
+                            <td>Dinner</td>
+                        }
                     <td>
                         @*@Html.DisplayFor(modelItem => item.IsActive) *@
 

@@ -125,7 +125,8 @@ namespace UniversityResturantInformation.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", user.RoleId);
+
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName");
             return View(user);
         }
 
@@ -489,7 +490,16 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "DataEntry")]
         public IActionResult DataEntry()
         {
-            return View();
+            int itemCount = _context.Items.Count(d => d.IsDeleted == false);
+
+            // Count menus
+            int menuCount = _context.Menus.Count(d => d.IsDeleted == false);
+
+            return View(new CountsViewModels
+            {
+                item = itemCount,
+                menu = menuCount,
+            });
         }
 
     }

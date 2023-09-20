@@ -108,15 +108,18 @@
             @{
                 if (User.Identity.IsAuthenticated)
                 {
-
-                    <a class="btn-book-a-table" href="/Users/Logout"> Logout </a>
-
+                    <div>
+                        <a class="btn-book-a-table" href="/Home">Home</a>
+                        <a class="btn-book-a-table" href="/Users/Logout">Logout</a>
+                    </div>
                 }
                 else
                 {
                     <a class="btn-book-a-table" href="/Users/Login"> Login </a>
                 }
-            }            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+
+            }         
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
         </div>

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {}
+    "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {
+    "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
+        "projectUniqueName": "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
         "projectName": "UniversityResturantInformation",
-        "projectPath": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
-        "packagesPath": "C:\\Users\\adami\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adami\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\obj\\",
+        "projectPath": "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\UniversityResturantInformation.csproj",
+        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ASUS\\Documents\\GitHub\\Co-op-project\\UniversityResturantInformation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\adami\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
