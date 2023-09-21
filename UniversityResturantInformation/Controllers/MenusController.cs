@@ -34,7 +34,7 @@ namespace UniversityResturantInformation.Controllers
             {
                 return NotFound();
             }
-
+            
             var menu = await _context.Menus
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (menu == null)
@@ -42,6 +42,9 @@ namespace UniversityResturantInformation.Controllers
                 return NotFound();
             }
 
+            ViewBag.items = await _context.Menu_Items.Include(d => d.Item)
+                           .Include(m => m.Menu).Where(mx => mx.Menu.Id == id)
+                           .ToListAsync();
             return View(menu);
         }
 
@@ -72,6 +75,24 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.meal = new List<SelectListItem>{
+             new SelectListItem{
+                Text="Please Select Meal",
+                Value = "0"
+            },
+            new SelectListItem{
+                Text="Breakfast",
+                Value = "1"
+            },
+            new SelectListItem{
+                Text="Lunch",
+                Value = "2"
+            },
+            new SelectListItem{
+                Text="Dinner",
+                Value = "3"
+            } };
+
             if (id == null)
             {
                 return NotFound();
@@ -82,6 +103,7 @@ namespace UniversityResturantInformation.Controllers
             {
                 return NotFound();
             }
+
             return View(menu);
         }
 
@@ -93,6 +115,23 @@ namespace UniversityResturantInformation.Controllers
 
         public async Task<IActionResult> Edit(int id, [Bind("Id,IsActive,Meal,IsVoteable")] Menu menu)
         {
+            ViewBag.meal = new List<SelectListItem>{
+            new SelectListItem{
+                Text="Please Select Meal",
+                Value = "0"
+            },
+            new SelectListItem{
+                Text="Breakfast",
+                Value = "1"
+            },
+            new SelectListItem{
+                Text="Lunch",
+                Value = "2"
+            },
+            new SelectListItem{
+                Text="Dinner",
+                Value = "3"
+            } };
             if (id != menu.Id)
             {
                 return NotFound();
@@ -102,7 +141,14 @@ namespace UniversityResturantInformation.Controllers
             {
                 try
                 {
-                    _context.Update(menu);
+                    var x = await _context.Menus.FindAsync(id);
+                    x.IsActive = menu.IsActive;
+                    x.IsVoteable = menu.IsVoteable;
+                    if(menu.Meal != 0)
+                    {
+                        x.Meal = menu.Meal;
+                    }
+                    _context.Update(x);
                     await _context.SaveChangesAsync();
                     if (menu.IsActive)
                     {
@@ -129,6 +175,7 @@ namespace UniversityResturantInformation.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(menu);
         }
 
@@ -147,7 +194,9 @@ namespace UniversityResturantInformation.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.items = await _context.Menu_Items.Include(d => d.Item)
+                           .Include(m => m.Menu).Where(mx => mx.Menu.Id == id)
+                           .ToListAsync();
             return View(menu);
         }
 

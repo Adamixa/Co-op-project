@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "_Layout";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+
+    <div class="row gy-5">
+        @{
+            foreach (Item menu in ViewBag.items)
+            {
+                <div class="col-lg-4 menu-item">
+                    <a href="@menu.File" class="glightbox">
+                        <img src="@menu.File" style="width:250px ; height:175px" class="menu-img img-fluid" alt="">
+                    </a>
+                    <h4>@menu.ItemName</h4>
+                    <p class="price">Cal: @menu.Cal</p>
+                    <p class="price">
+                        @menu.Total <i class="bi bi-star-fill" style="color: #d41914;"></i>
+                    </p>
+                </div>
+            }
+
+        }
+    </div>

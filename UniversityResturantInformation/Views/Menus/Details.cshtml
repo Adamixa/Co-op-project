@@ -19,17 +19,66 @@
     <h4>Menu</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            Menu Number
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
+        <dd class="col-sm-10">
+
+            @*@Html.DisplayFor(modelItem => item.IsActive) *@
+
+            <div class="form-check form-switch">
+                @Html.CheckBoxFor(modelItem => Model.IsActive, new { @class = "form-check-input", id = "flexSwitchCheck" + (Model.IsActive ? "Checked" : "Unchecked"), @checked = Model.IsActive, @disabled = "disabled" })
+                <label class="form-check-label" for="flexSwitchCheck@(Model.IsActive ? "Checked" : "Unchecked")"> </label>
+            </div>
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsVoteable)
+        </dt>
+        <dd class="col-sm-10">
+            
+                @*@Html.DisplayFor(modelItem => item.IsActive) *@
+
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(modelItem => Model.IsVoteable, new { @class = "form-check-input", id = "flexSwitchCheck" + (Model.IsVoteable ? "Checked" : "Unchecked"), @checked = Model.IsVoteable, @disabled = "disabled" })
+                    <label class="form-check-label" for="flexSwitchCheck@(Model.IsVoteable ? "Checked" : "Unchecked")"> </label>
+                </div>
+            
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Meal)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Meal)
+       
+            @if (Model.Meal == 1)
+            {
+            <dd class="col-sm-10">BreakFast</dd>
+            }
+            else if (Model.Meal == 2)
+            {
+            <dd class="col-sm-10">Lunch</dd>
+            }
+            else
+            {
+            <dd class="col-sm-10">Dinner</dd>
+            }
+        
+        <dt class=" = col-sm-2">
+            Menu Items:
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (Menu_Item item in ViewBag.items)
+            {
+               
+                
+                    <p class="text-dark mt-3 mb-3 fs-8">@item.Item.ItemName</p>
+                
+            }
         </dd>
     </dl>
 </div>

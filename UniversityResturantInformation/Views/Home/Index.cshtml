@@ -20,13 +20,20 @@
                     {
                         if (User.FindFirst(ClaimTypes.Role).Value == "User")
                         {
-                            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                                <a href="https://localhost:44365/votes/vote" class="btn-book-a-table">Vote on Menu</a>
-                            </div>
                             <br />
                             <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                                <a href="https://localhost:44365/votes/vote" class="btn-book-a-table">Vote on Menu</a>
                                 <a href="https://localhost:44365/Ratings/Rate" class="btn-book-a-table">Rate our Item</a>
+                                <a href="https://localhost:44365/Ratings/RatingsDisplay" class="btn-book-a-table">View All Items</a>
                             </div>
+                            // <br />
+                            // <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                            //     <a href="https://localhost:44365/Ratings/Rate" class="btn-book-a-table">Rate our Item</a>
+                            // </div>
+                            // <br />
+                            // <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                            //     <a href="https://localhost:44365/Ratings/RatingsDisplay" class="btn-book-a-table">View All Items</a>
+                            // </div>
                         }
                     }
                 }

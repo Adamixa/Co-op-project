@@ -54,7 +54,18 @@
             @Html.DisplayNameFor(model => model.Menu.Meal)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Menu.Meal)
+            @if (Model.Menu.Meal == 1)
+            {
+                <td>BreakFast</td>
+            }
+            else if (Model.Menu.Meal == 2)
+            {
+                <td>Lunch</td>
+            }
+            else
+            {
+                <td>Dinner</td>
+            }
         </dd>
     </dl>
 </div>

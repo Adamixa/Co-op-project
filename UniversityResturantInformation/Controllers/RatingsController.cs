@@ -259,5 +259,14 @@ namespace UniversityResturantInformation.Controllers
         {
             return _context.Ratings.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> RatingsDisplay()
+        {
+            ViewBag.items = await _context.Items.Where(mx=> mx.IsDeleted == false)
+                   .ToListAsync();
+
+       
+            return View();
+        }
     }
 }

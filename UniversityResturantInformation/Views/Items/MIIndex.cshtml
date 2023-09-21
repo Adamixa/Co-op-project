@@ -49,9 +49,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Menu.Id)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Menu.Meal)
-                </td>
+                
+                            @if (item.Menu.Meal == 1)
+                            {
+                            <td>BreakFast</td>
+                            }
+                            else if (item.Menu.Meal == 2)
+                            {
+                            <td>Lunch</td>
+                            }
+                            else
+                            {
+                            <td>Dinner</td>
+                            }
+                
                 <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">
                             <i class="bi bi-pencil"></i>
