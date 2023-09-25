@@ -12,6 +12,41 @@
         Layout = "AdminLayout";
     }
 }
+<script>
+    @{
+        if (@ViewData["Successful"] != null)
+        {
+            <Text>
+            var result = '@Html.Raw(ViewData["Successful"])';
+            Swal.fire(result, '', 'success')
+                .then(
+                    function () {
+                        window.location.href = '@Url.Action("Index","Menus")';
+                    }
+                );
+            </Text>
+        }
+        else if (@ViewData["Falied"] != null && ViewData["NoRedirect"] == null)
+        {
+            <Text>
+            var result = '@Html.Raw(ViewData["Falied"])';
+            Swal.fire(result, '', 'error')
+                .then(
+                    function () {
+                        window.location.href = '@Url.Action("Rate","Ratings")';
+                    }
+                );
+            </Text>
+        }
+        else if (@ViewData["Falied"] != null && ViewData["NoRedirect"] != null)
+        {
+            <Text>
+                                                                    var result = '@Html.Raw(ViewData["Falied"])';
+            Swal.fire(result, '', 'error');
+            </Text>
+        }
+    }
+</script>
 
 
 <h1>Edit</h1>

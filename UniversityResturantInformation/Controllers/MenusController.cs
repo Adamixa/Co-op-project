@@ -66,7 +66,9 @@ namespace UniversityResturantInformation.Controllers
             {
                 _context.Add(menu);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["Successful"] = " The menu has been created successfully!";
+
+                return View(menu);
             }
             return View(menu);
         }
@@ -158,8 +160,10 @@ namespace UniversityResturantInformation.Controllers
                         }
                         menu.IsActive = true;
                         await _context.SaveChangesAsync();
+                        ViewData["Successful"] = "The Menu has been modified successfully!";
+
                     }
-                    
+
 
                 }
                 catch (DbUpdateConcurrencyException)
@@ -173,9 +177,11 @@ namespace UniversityResturantInformation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["Successful"] = "The Menu has been modified successfully!";
+
+                return View(menu);
             }
-            
+
             return View(menu);
         }
 
@@ -205,10 +211,14 @@ namespace UniversityResturantInformation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewBag.items = await _context.Menu_Items.Include(d => d.Item)
+                           .Include(m => m.Menu).Where(mx => mx.Menu.Id == id)
+                           .ToListAsync();
             var menu = await _context.Menus.FindAsync(id);
             menu.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewData["Delete"] = "The item has been deleted successfully!";
+            return View(menu);
         }
 
         private bool MenuExists(int id)

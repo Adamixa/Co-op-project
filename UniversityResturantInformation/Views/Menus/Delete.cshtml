@@ -12,6 +12,44 @@
         Layout = "AdminLayout";
     }
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (ViewData["Delete"] != null)
+    {
+        <text>
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will delete this item',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Your item has been deleted.',
+                        icon: 'success',
+                    }).then(function () {
+                        window.location.href = '@Url.Action("Index", "Menus")';
+                    });
+                }
+            });
+        </text>
+    }
+            // else if (ViewData["Failed"] != null)
+            // {
+            //     <text>
+            //         Swal.fire({
+            //             icon: 'error',
+            //             title: 'Oops...',
+            //             text: 'Something went wrong, Try Later!'
+            //         });
+            //     </text>
+            // }
+</script>
+
 
 <h1>Delete</h1>
 

@@ -2323,3 +2323,4 @@ C:\Users\adami\Documents\GitHub\Co-op-project\UniversityResturantInformation\bin
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MenuItemDelete.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MIDelete.cshtml.g.cs
 C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Items\MIDetails.cshtml.g.cs
+C:\Users\ASUS\Documents\GitHub\Co-op-project\UniversityResturantInformation\obj\Debug\netcoreapp3.1\Razor\Views\Ratings\RatingsDisplay.cshtml.g.cs

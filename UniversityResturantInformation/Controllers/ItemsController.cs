@@ -100,12 +100,15 @@ namespace UniversityResturantInformation.Controllers
                 {
                     _context.Add(item);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    ViewData["Successful"] = "The menu has been created successfully!";
+
+                    return View(item);
                 }
 
-               
+
             }
             return View(item);
+
         }
 
         // GET: Items/Edit/5
@@ -178,7 +181,8 @@ namespace UniversityResturantInformation.Controllers
 
                 // Save the changes
                 await _context.SaveChangesAsync();
-        }
+                ViewData["Successful"] = "The item has been modified successfully!";
+            }
             catch (DbUpdateConcurrencyException)
             {
                 if (!ItemsExists(items.Id))
@@ -190,7 +194,7 @@ namespace UniversityResturantInformation.Controllers
                     throw;
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return View();
         }
             //if (id != items.Id)
             //{
@@ -263,7 +267,9 @@ namespace UniversityResturantInformation.Controllers
             var item = await _context.Items.FindAsync(id);
             item.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewData["Delete"] = "The item has been deleted successfully!";
+
+            return View();
         }
         [Authorize(Roles = "Admin, DataEntry")]
         public IActionResult MenuItem()
@@ -342,6 +348,7 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> MenuItemEdit(int? id)
         {
+            ViewBag.Item = await _context.Menu_Items.FindAsync(id);
             if (id == null)
             {
                 return NotFound();
@@ -372,6 +379,8 @@ namespace UniversityResturantInformation.Controllers
                 {
                     _context.Update(MenuItem);
                     await _context.SaveChangesAsync();
+                    ViewData["Successful"] = "The Menu has been modified successfully!";
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -384,7 +393,7 @@ namespace UniversityResturantInformation.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(MIIndex));
+                return View();
             }
             ViewData["ItemId"] = new SelectList(_context.Items, "Id", "ItemName");
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
@@ -394,6 +403,8 @@ namespace UniversityResturantInformation.Controllers
         [Authorize(Roles = "Admin, DataEntry")]
         public async Task<IActionResult> MIDelete(int? id)
         {
+            var item1 = _context.Menu_Items.Where(x => x.Id == id).SingleOrDefault();
+
             if (id == null)
             {
                 return NotFound();
@@ -416,7 +427,10 @@ namespace UniversityResturantInformation.Controllers
             var item = await _context.Menu_Items.FindAsync(id);
             item.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(MIIndex));
+            ViewData["Delete"] = "The menu has been deleted successfully!";
+            var item1 = await _context.Menu_Items.Include(x => x.Menu).Include(y => y.Item)
+                            .FirstOrDefaultAsync(m => m.Id == id);
+            return View(item1);
         }
 
         [Authorize(Roles = "Admin, DataEntry")]

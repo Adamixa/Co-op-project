@@ -340,16 +340,27 @@ namespace UniversityResturantInformation.Controllers
 
         }
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Archive(int meal)
+        public async Task<IActionResult> Archive(int meal , int menuM)
         {
             try {
+                var m = _context.Menus.Find(menuM);
+                var MI = _context.Menus.ToList().Where(mx => mx.IsActive == true && mx.Meal == m.Meal);
+                foreach (var menu in MI)
+                {
+                    menu.IsActive = false;
+                    menu.IsVoteable = true;
+                    await _context.SaveChangesAsync();
+                }
+                m.IsVoteable = false;
+                m.IsActive = true;
+
+                await _context.SaveChangesAsync();
                 var n = _context.Votes.Where(m => m.Menu.Meal == meal)
                     .ToList();
 
-
                 foreach (var vote in n)
                 {
-                    var m = _context.Menus.Find(vote.MenuId);
+                    var MArchive = _context.Menus.Find(vote.MenuId);
                     Archive archive = new Archive();
                     archive.MenuCode = vote.MenuId;
                     archive.Date = vote.Date;
